@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --navy: #0f2744;
+  --gold: #b8860b;
+  --gold-light: #c9a227;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 18px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 19px;
+  }
+}
+
+body {
+  @apply bg-white text-[#1a365d] antialiased;
+  line-height: 1.65;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-fade-in-up {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
