@@ -34,54 +34,48 @@ export default function Home() {
         <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 lg:px-8">
           <Logo variant="light" />
           <div className="flex items-center gap-6">
-            <a
-              href={`#${HOW_IT_WORKS_ID}`}
-              onClick={(e) => { e.preventDefault(); scrollTo(HOW_IT_WORKS_ID); }}
+            <Link
+              href="/how-it-works"
               className="hidden text-base font-medium text-white/90 transition hover:text-gold-light sm:block"
             >
               How it Works
-            </a>
-            <a
-              href={`#${CHECK_ELIGIBILITY_ID}`}
-              onClick={(e) => { e.preventDefault(); scrollTo(CHECK_ELIGIBILITY_ID); }}
+            </Link>
+            <Link
+              href="/#check-eligibility"
               className="hidden text-base font-medium text-white/90 transition hover:text-gold-light sm:block"
             >
               Eligibility
-            </a>
-            <a
-              href={`#${FAQ_ID}`}
-              onClick={(e) => { e.preventDefault(); scrollTo(FAQ_ID); }}
+            </Link>
+            <Link
+              href="/faq"
               className="hidden text-base font-medium text-white/90 transition hover:text-gold-light sm:block"
             >
               FAQ
-            </a>
-            <a
-              href={`#${SUPPORT_ID}`}
-              onClick={(e) => { e.preventDefault(); scrollTo(SUPPORT_ID); }}
+            </Link>
+            <Link
+              href="/support"
               className="hidden text-base font-medium text-white/90 transition hover:text-gold-light sm:block"
             >
               Support
-            </a>
-            <a
-              href={`#${CAREERS_ID}`}
-              onClick={(e) => { e.preventDefault(); scrollTo(CAREERS_ID); }}
+            </Link>
+            <Link
+              href="/careers"
               className="hidden text-base font-medium text-white/90 transition hover:text-gold-light sm:block"
             >
               Careers
-            </a>
-            <button
-              onClick={() => scrollTo(CHECK_ELIGIBILITY_ID)}
+            </Link>
+            <Link
+              href="/#check-eligibility"
               className="rounded-lg bg-gold px-6 py-3 text-base font-semibold text-navy shadow-sm transition hover:bg-gold-light focus:outline-none focus:ring-2 focus:ring-gold-light focus:ring-offset-2 focus:ring-offset-navy"
             >
-              Check Eligibility
-            </button>
-            <a
-              href={`#${PARTNER_FORM_ID}`}
-              onClick={(e) => { e.preventDefault(); scrollTo(PARTNER_FORM_ID); }}
+              Check My Eligibility
+            </Link>
+            <Link
+              href="/partners"
               className="text-base font-medium text-white/80 transition hover:text-gold-light"
             >
-              Partner With Us
-            </a>
+              Partners
+            </Link>
           </div>
         </nav>
       </header>
