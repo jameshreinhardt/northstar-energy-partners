@@ -4,7 +4,7 @@ import { mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 import { Resend } from "resend";
 import { getClientIp } from "../lib/getClientIp";
-import { checkRateLimit } from "../lib/rateLimit";
+import { checkRateLimitKv } from "../lib/rateLimitKv";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EMAIL =
@@ -71,7 +71,7 @@ export async function submitEligibilityLead(
   const honeypot = (formData.get("company") as string)?.trim() ?? "";
   if (honeypot) return { ok: true };
 
-  const rate = checkRateLimit(getClientIp(), "eligibility");
+  const rate = await checkRateLimitKv(getClientIp(), "eligibility");
   if (!rate.allowed) return { ok: false, error: rate.error };
 
   const fullName = (formData.get("fullName") as string)?.trim() ?? "";

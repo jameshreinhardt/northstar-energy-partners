@@ -19,8 +19,8 @@ export function EligibilityForm() {
         </p>
       )}
       <form key={formKey} action={formAction} className="space-y-6">
-        <div className="sr-only" aria-hidden="true">
-          <label htmlFor="eligibility-company">Company</label>
+        <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", top: "auto", width: "1px", height: "1px", overflow: "hidden" }}>
+          <label htmlFor="eligibility-company">Leave this blank</label>
           <input id="eligibility-company" name="company" type="text" tabIndex={-1} autoComplete="off" />
         </div>
         <div className="grid gap-6 sm:grid-cols-2">
