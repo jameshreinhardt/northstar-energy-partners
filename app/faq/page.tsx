@@ -1,17 +1,22 @@
 import Link from "next/link";
-import { PageHeader } from "../components/PageHeader";
+import { SiteHeader } from "../components/SiteHeader";
 import { FadeIn } from "../components/FadeIn";
 
 export const metadata = {
   title: "FAQ | Northstar Energy Partners",
   description:
     "Frequently asked questions about community solar, eligibility, and how Northstar Energy Partners works.",
+  openGraph: {
+    title: "FAQ | Northstar Energy Partners",
+    description:
+      "Frequently asked questions about community solar, eligibility, and how Northstar Energy Partners works.",
+  },
 };
 
 export default function FAQPage() {
   return (
     <div className="min-h-screen bg-slate-50/70">
-      <PageHeader />
+      <SiteHeader />
       <main className="mx-auto max-w-3xl px-6 py-24 lg:px-8 lg:py-32">
         <FadeIn>
           <h1 className="font-serif text-3xl font-semibold tracking-tight text-navy sm:text-4xl">

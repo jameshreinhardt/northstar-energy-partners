@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PageHeader } from "../components/PageHeader";
+import { SiteHeader } from "../components/SiteHeader";
 import { FadeIn } from "../components/FadeIn";
 import { PartnerForm } from "../components/PartnerForm";
 
@@ -7,12 +7,17 @@ export const metadata = {
   title: "Partners | Northstar Energy Partners",
   description:
     "Northstar Energy Partners is a dedicated subscriber acquisition platform. Partner with us for community solar enrollment.",
+  openGraph: {
+    title: "Partners | Northstar Energy Partners",
+    description:
+      "Northstar Energy Partners is a dedicated subscriber acquisition platform. Partner with us for community solar enrollment.",
+  },
 };
 
 export default function PartnersPage() {
   return (
     <div className="min-h-screen bg-white">
-      <PageHeader />
+      <SiteHeader />
       <main className="mx-auto max-w-5xl px-6 py-24 lg:px-8 lg:py-32">
         <FadeIn>
           <h1 className="font-serif text-3xl font-semibold tracking-tight text-navy sm:text-4xl">

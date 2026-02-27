@@ -1,8 +1,13 @@
 import Link from "next/link";
+import { SiteHeader } from "../components/SiteHeader";
 
 export const metadata = {
   title: "Terms of Service | Northstar Energy Partners",
   description: "Terms of service for Northstar Energy Partners. Use of our website and enrollment support.",
+  openGraph: {
+    title: "Terms of Service | Northstar Energy Partners",
+    description: "Terms of service for Northstar Energy Partners. Use of our website and enrollment support.",
+  },
 };
 
 const LAST_UPDATED = "Feb 27, 2026";
@@ -10,20 +15,7 @@ const LAST_UPDATED = "Feb 27, 2026";
 export default function TermsPage() {
   return (
     <div className="min-h-screen bg-white">
-      <header className="border-b border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 lg:px-8">
-          <Link href="/" className="font-serif text-xl font-semibold tracking-tight text-navy hover:text-gold transition focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 rounded">
-            Northstar Energy Partners
-          </Link>
-          <Link
-            href="/"
-            className="text-base font-medium text-navy hover:text-gold transition"
-          >
-            Back to home
-          </Link>
-        </div>
-      </header>
-
+      <SiteHeader />
       <main className="mx-auto max-w-3xl px-6 py-16 lg:px-8 lg:py-24">
         <h1 className="font-serif text-3xl font-semibold tracking-tight text-navy sm:text-4xl">
           Terms of Service

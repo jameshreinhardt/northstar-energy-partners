@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PageHeader } from "../components/PageHeader";
+import { SiteHeader } from "../components/SiteHeader";
 import { FadeIn } from "../components/FadeIn";
 import { SupportForm } from "../components/SupportForm";
 
@@ -7,12 +7,17 @@ export const metadata = {
   title: "Support | Northstar Energy Partners",
   description:
     "Questions about your account or eligibility? Reach out and we'll get back to you.",
+  openGraph: {
+    title: "Support | Northstar Energy Partners",
+    description:
+      "Questions about your account or eligibility? Reach out and we'll get back to you.",
+  },
 };
 
 export default function SupportPage() {
   return (
     <div className="min-h-screen bg-white">
-      <PageHeader />
+      <SiteHeader />
       <main className="mx-auto max-w-2xl px-6 py-24 lg:px-8 lg:py-32">
         <FadeIn>
           <h1 className="font-serif text-3xl font-semibold tracking-tight text-navy sm:text-4xl">

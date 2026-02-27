@@ -1,17 +1,22 @@
 import Link from "next/link";
-import { PageHeader } from "../components/PageHeader";
+import { SiteHeader } from "../components/SiteHeader";
 import { FadeIn } from "../components/FadeIn";
 
 export const metadata = {
   title: "How it Works | Northstar Energy Partners",
   description:
     "Community solar lets you support local solar power and see credits on your electric bill. Learn how it works.",
+  openGraph: {
+    title: "How it Works | Northstar Energy Partners",
+    description:
+      "Community solar lets you support local solar power and see credits on your electric bill. Learn how it works.",
+  },
 };
 
 export default function HowItWorksPage() {
   return (
     <div className="min-h-screen bg-white">
-      <PageHeader />
+      <SiteHeader />
       <main className="mx-auto max-w-5xl px-6 py-24 lg:px-8 lg:py-32">
         <FadeIn>
           <h1 className="font-serif text-3xl font-semibold tracking-tight text-navy sm:text-4xl">

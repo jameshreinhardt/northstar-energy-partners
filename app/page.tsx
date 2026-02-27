@@ -3,12 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FadeIn } from "./components/FadeIn";
-import { Logo } from "./components/Logo";
+import { SiteHeader } from "./components/SiteHeader";
 import { EligibilityForm } from "./components/EligibilityForm";
-import { PartnerForm } from "./components/PartnerForm";
 import { StickyEligibilityBar } from "./components/StickyEligibilityBar";
-import { SupportForm } from "./components/SupportForm";
-import { CareersForm } from "./components/CareersForm";
 
 const HERO_IMAGE =
   "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=1920&q=80";
@@ -29,57 +26,7 @@ export default function Home() {
 
   return (
     <>
-      {/* Sticky nav */}
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-navy/95 backdrop-blur-md">
-        <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 lg:px-8">
-          <Logo variant="light" />
-          <div className="flex items-center gap-6">
-            <Link
-              href="/how-it-works"
-              className="hidden text-base font-medium text-white/90 transition hover:text-gold-light sm:block"
-            >
-              How it Works
-            </Link>
-            <Link
-              href="/#check-eligibility"
-              className="hidden text-base font-medium text-white/90 transition hover:text-gold-light sm:block"
-            >
-              Eligibility
-            </Link>
-            <Link
-              href="/faq"
-              className="hidden text-base font-medium text-white/90 transition hover:text-gold-light sm:block"
-            >
-              FAQ
-            </Link>
-            <Link
-              href="/support"
-              className="hidden text-base font-medium text-white/90 transition hover:text-gold-light sm:block"
-            >
-              Support
-            </Link>
-            <Link
-              href="/careers"
-              className="hidden text-base font-medium text-white/90 transition hover:text-gold-light sm:block"
-            >
-              Careers
-            </Link>
-            <Link
-              href="/#check-eligibility"
-              className="rounded-lg bg-gold px-6 py-3 text-base font-semibold text-navy shadow-sm transition hover:bg-gold-light focus:outline-none focus:ring-2 focus:ring-gold-light focus:ring-offset-2 focus:ring-offset-navy"
-            >
-              Check My Eligibility
-            </Link>
-            <Link
-              href="/partners"
-              className="text-base font-medium text-white/80 transition hover:text-gold-light"
-            >
-              Partners
-            </Link>
-          </div>
-        </nav>
-      </header>
-
+      <SiteHeader />
       <main>
         {/* Hero with solar farm background */}
         <section className="relative min-h-[90vh] overflow-hidden">
@@ -635,21 +582,18 @@ export default function Home() {
               <p className="mt-6 text-xl text-slate-600">
                 Questions about your account or eligibility? Reach out and we’ll get back to you.
               </p>
-              <p className="mt-6">
-                <a
-                  href="mailto:support@northstarenergypartners.com"
-                  className="text-xl font-semibold text-navy hover:text-gold focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 rounded"
-                >
-                  support@northstarenergypartners.com
-                </a>
-              </p>
               <p className="mt-4 text-slate-600">
                 We aim to respond within one business day.
               </p>
             </FadeIn>
             <FadeIn delay={80}>
-              <div className="mt-12 rounded-2xl border border-slate-200 bg-slate-50/50 p-8 lg:p-10">
-                <SupportForm />
+              <div className="mt-10">
+                <Link
+                  href="/support"
+                  className="inline-block rounded-lg bg-gold px-8 py-4 text-lg font-semibold text-navy shadow-lg transition hover:bg-gold-light focus:outline-none focus:ring-2 focus:ring-gold-light focus:ring-offset-2 focus:ring-offset-white"
+                >
+                  Contact Support
+                </Link>
               </div>
             </FadeIn>
           </div>
@@ -710,17 +654,17 @@ export default function Home() {
               </FadeIn>
             </div>
             <div className="mt-12 flex justify-center">
-              <button
-                onClick={() => scrollTo(PARTNER_FORM_ID)}
+              <Link
+                href="/partners"
                 className="rounded-lg bg-gold px-8 py-4 text-lg font-semibold text-navy shadow-lg transition hover:bg-gold-light focus:outline-none focus:ring-2 focus:ring-gold-light focus:ring-offset-2 focus:ring-offset-white"
               >
                 Partner With Northstar
-              </button>
+              </Link>
             </div>
           </div>
         </section>
 
-        {/* Partner With Us form */}
+        {/* Partner With Us preview */}
         <section
           id={PARTNER_FORM_ID}
           className="scroll-mt-24 bg-white px-6 py-24 lg:px-8 lg:py-32"
@@ -732,12 +676,17 @@ export default function Home() {
               </h2>
               <div className="mt-4 h-1 w-14 bg-gold rounded-full" />
               <p className="mt-6 text-xl text-slate-600">
-                For developers, utilities, and program partners: share your goals and we’ll respond within one business day. Submissions go to partners@northstarenergypartners.com.
+                For developers, utilities, and program partners: share your goals and we’ll respond within one business day.
               </p>
             </FadeIn>
             <FadeIn delay={80}>
-              <div className="mt-12 rounded-2xl border border-slate-200 bg-slate-50/50 p-8 lg:p-10">
-                <PartnerForm />
+              <div className="mt-10">
+                <Link
+                  href="/partners"
+                  className="inline-block rounded-lg bg-gold px-8 py-4 text-lg font-semibold text-navy shadow-lg transition hover:bg-gold-light focus:outline-none focus:ring-2 focus:ring-gold-light focus:ring-offset-2 focus:ring-offset-white"
+                >
+                  Partner With Northstar
+                </Link>
               </div>
             </FadeIn>
           </div>
@@ -754,7 +703,7 @@ export default function Home() {
                 Careers
               </h2>
               <div className="mt-4 h-1 w-14 bg-gold rounded-full" />
-              <p className="mt-8 text-xl leading-relaxed text-slate-600">
+              <p className="mt-6 text-xl leading-relaxed text-slate-600">
                 We’re building a team that can scale community solar acquisition
                 across the country. If you’re driven by operational excellence,
                 clean energy, and building something that lasts, we’d like to
@@ -762,8 +711,13 @@ export default function Home() {
               </p>
             </FadeIn>
             <FadeIn delay={80}>
-              <div className="mt-12 rounded-2xl border border-slate-200 bg-slate-50/50 p-8 lg:p-10">
-                <CareersForm />
+              <div className="mt-10">
+                <Link
+                  href="/careers"
+                  className="inline-block rounded-lg bg-gold px-8 py-4 text-lg font-semibold text-navy shadow-lg transition hover:bg-gold-light focus:outline-none focus:ring-2 focus:ring-gold-light focus:ring-offset-2 focus:ring-offset-white"
+                >
+                  View Careers
+                </Link>
               </div>
             </FadeIn>
           </div>
