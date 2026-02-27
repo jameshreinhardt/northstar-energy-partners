@@ -20,7 +20,7 @@ export function PartnerForm() {
       const body = encodeURIComponent(
         `Name: ${formData.name}\nCompany: ${formData.company}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
       );
-      window.location.href = `mailto:james@northstarenergypartners.com?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:partners@northstarenergypartners.com?subject=${subject}&body=${body}`;
       setStatus("sent");
       setFormData({ name: "", company: "", email: "", message: "" });
     } catch {
@@ -105,7 +105,7 @@ export function PartnerForm() {
         {status === "sending" ? "Sending…" : status === "sent" ? "Thank you" : "Send inquiry"}
       </button>
       {status === "error" && (
-        <p className="text-base text-red-600">Something went wrong. Please email james@northstarenergypartners.com directly.</p>
+        <p className="text-base text-red-600">Something went wrong. Please email partners@northstarenergypartners.com directly.</p>
       )}
     </form>
   );

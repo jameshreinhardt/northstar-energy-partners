@@ -358,7 +358,7 @@ export default function Home() {
                 hear from you.
               </p>
               <a
-                href="mailto:james@northstarenergypartners.com?subject=Career%20inquiry"
+                href="mailto:recruiting@northstarenergypartners.com?subject=Career%20inquiry"
                 className="mt-8 inline-block rounded-lg bg-navy px-6 py-3.5 text-lg font-semibold text-white transition hover:bg-navy-light"
               >
                 Get in touch
@@ -426,11 +426,18 @@ export default function Home() {
                   Founder, Northstar Energy Partners
                 </p>
                 <a
-                  href="mailto:james@northstarenergypartners.com"
+                  href="mailto:jreinhardt@northstarenergypartners.com"
                   className="mt-6 inline-block rounded-lg bg-navy px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-navy-light focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2"
                 >
                   Email James
                 </a>
+                <p className="mt-6 text-slate-600">
+                  General inquiries:{" "}
+                  <a href="mailto:info@northstarenergypartners.com" className="font-medium text-navy hover:text-gold">info@northstarenergypartners.com</a>
+                  <br />
+                  Customer support:{" "}
+                  <a href="mailto:support@northstarenergypartners.com" className="font-medium text-navy hover:text-gold">support@northstarenergypartners.com</a>
+                </p>
               </div>
             </FadeIn>
           </div>
