@@ -24,3 +24,6 @@ yarn-error.log*
 .idea
 *.swp
 .DS_Store
+
+# Lead storage (local file)
+/data/

@@ -1,14 +1,21 @@
 "use client";
 
 import { useFormState } from "react-dom";
-import { submitPartnerInquiry } from "../partners/actions";
+import { submitCareersApplication } from "../careers/actions";
+
+const ROLES = [
+  { value: "canvassing", label: "Canvassing" },
+  { value: "sales", label: "Sales" },
+  { value: "operations", label: "Operations" },
+  { value: "other", label: "Other" },
+] as const;
 
 const inputClass =
   "mt-2 block w-full rounded-lg border border-slate-300 bg-white px-4 py-3.5 text-lg text-slate-800 shadow-sm transition focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/20";
 const labelClass = "block text-base font-semibold text-navy";
 
-export function PartnerForm() {
-  const [state, formAction] = useFormState(submitPartnerInquiry, null);
+export function CareersForm() {
+  const [state, formAction] = useFormState(submitCareersApplication, null);
   const success = state?.ok === true;
   const formKey = success ? "submitted" : "form";
 
@@ -17,18 +24,18 @@ export function PartnerForm() {
       {success && (
         <p className="mb-6 text-lg font-medium text-navy">
           {state.fallback
-            ? `Partnership request received. ${state.fallback}`
-            : "Partnership request received. Check your email for confirmation."}
+            ? state.fallback
+            : "Application received. Check your email for confirmation."}
         </p>
       )}
       <form key={formKey} action={formAction} className="space-y-6">
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
-            <label htmlFor="partner-fullName" className={labelClass}>
-              Name *
+            <label htmlFor="careers-fullName" className={labelClass}>
+              Full name *
             </label>
             <input
-              id="partner-fullName"
+              id="careers-fullName"
               name="fullName"
               type="text"
               required
@@ -37,66 +44,67 @@ export function PartnerForm() {
             />
           </div>
           <div>
-            <label htmlFor="partner-company" className={labelClass}>
-              Company / Organization *
+            <label htmlFor="careers-email" className={labelClass}>
+              Email *
             </label>
             <input
-              id="partner-company"
-              name="company"
-              type="text"
+              id="careers-email"
+              name="email"
+              type="email"
               required
               className={inputClass}
-              placeholder="Company name"
+              placeholder="you@example.com"
             />
           </div>
         </div>
         <div>
-          <label htmlFor="partner-email" className={labelClass}>
-            Email *
+          <label htmlFor="careers-phone" className={labelClass}>
+            Phone *
           </label>
           <input
-            id="partner-email"
-            name="email"
-            type="email"
-            required
-            className={inputClass}
-            placeholder="you@company.com"
-          />
-        </div>
-        <div>
-          <label htmlFor="partner-phone" className={labelClass}>
-            Phone
-          </label>
-          <input
-            id="partner-phone"
+            id="careers-phone"
             name="phone"
             type="tel"
+            required
             className={inputClass}
             placeholder="(555) 000-0000"
           />
         </div>
         <div>
-          <label htmlFor="partner-marketStates" className={labelClass}>
-            Market(s) / State(s)
+          <label htmlFor="careers-cityState" className={labelClass}>
+            City / State
           </label>
           <input
-            id="partner-marketStates"
-            name="marketStates"
+            id="careers-cityState"
+            name="cityState"
             type="text"
             className={inputClass}
-            placeholder="e.g. Maryland, DC, Virginia"
+            placeholder="City, State"
           />
         </div>
         <div>
-          <label htmlFor="partner-message" className={labelClass}>
-            How can we help?
+          <label htmlFor="careers-roleInterest" className={labelClass}>
+            Role interest *
+          </label>
+          <select id="careers-roleInterest" name="roleInterest" required className={inputClass}>
+            <option value="">Select role</option>
+            {ROLES.map((r) => (
+              <option key={r.value} value={r.value}>
+                {r.label}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label htmlFor="careers-experience" className={labelClass}>
+            Experience
           </label>
           <textarea
-            id="partner-message"
-            name="message"
+            id="careers-experience"
+            name="experience"
             rows={4}
             className={inputClass}
-            placeholder="Tell us about your community solar program or partnership interest."
+            placeholder="Tell us about your background (optional)"
           />
         </div>
         {state && !state.ok && (
@@ -106,7 +114,7 @@ export function PartnerForm() {
           type="submit"
           className="w-full rounded-lg bg-navy px-6 py-4 text-lg font-semibold text-white shadow-sm transition hover:bg-navy-light disabled:opacity-70 sm:w-auto sm:min-w-[200px]"
         >
-          Request Partnership
+          Send Application
         </button>
       </form>
     </>
