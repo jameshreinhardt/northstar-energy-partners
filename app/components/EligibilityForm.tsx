@@ -19,6 +19,10 @@ export function EligibilityForm() {
         </p>
       )}
       <form key={formKey} action={formAction} className="space-y-6">
+        <div className="sr-only" aria-hidden="true">
+          <label htmlFor="eligibility-company">Company</label>
+          <input id="eligibility-company" name="company" type="text" tabIndex={-1} autoComplete="off" />
+        </div>
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
             <label htmlFor="fullName" className="block text-base font-semibold text-navy">
@@ -123,7 +127,7 @@ export function EligibilityForm() {
           />
         </div>
         {state && !state.ok && (
-          <p className="text-base text-red-600">Something went wrong. Please try again.</p>
+          <p className="text-base text-red-600">{state.error ?? "Something went wrong. Please try again."}</p>
         )}
         <button
           type="submit"

@@ -22,6 +22,10 @@ export function PartnerForm() {
         </p>
       )}
       <form key={formKey} action={formAction} className="space-y-6">
+        <div className="sr-only" aria-hidden="true">
+          <label htmlFor="partner-honeypot">Company</label>
+          <input id="partner-honeypot" name="company" type="text" tabIndex={-1} autoComplete="off" />
+        </div>
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
             <label htmlFor="partner-fullName" className={labelClass}>
@@ -37,12 +41,12 @@ export function PartnerForm() {
             />
           </div>
           <div>
-            <label htmlFor="partner-company" className={labelClass}>
+            <label htmlFor="partner-organization" className={labelClass}>
               Company / Organization *
             </label>
             <input
-              id="partner-company"
-              name="company"
+              id="partner-organization"
+              name="organization"
               type="text"
               required
               className={inputClass}
@@ -100,7 +104,7 @@ export function PartnerForm() {
           />
         </div>
         {state && !state.ok && (
-          <p className="text-base text-red-600">Something went wrong. Please try again.</p>
+          <p className="text-base text-red-600">{state.error ?? "Something went wrong. Please try again."}</p>
         )}
         <button
           type="submit"

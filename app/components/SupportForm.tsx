@@ -30,6 +30,10 @@ export function SupportForm() {
         </p>
       )}
       <form key={formKey} action={formAction} className="space-y-6">
+        <div className="sr-only" aria-hidden="true">
+          <label htmlFor="support-company">Company</label>
+          <input id="support-company" name="company" type="text" tabIndex={-1} autoComplete="off" />
+        </div>
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
             <label htmlFor="support-fullName" className={labelClass}>
@@ -97,7 +101,7 @@ export function SupportForm() {
           />
         </div>
         {state && !state.ok && (
-          <p className="text-base text-red-600">Something went wrong. Please try again.</p>
+          <p className="text-base text-red-600">{state.error ?? "Something went wrong. Please try again."}</p>
         )}
         <button
           type="submit"

@@ -1,6 +1,8 @@
 "use server";
 
 import { Resend } from "resend";
+import { getClientIp } from "../lib/getClientIp";
+import { checkRateLimit } from "../lib/rateLimit";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EMAIL =
@@ -35,6 +37,12 @@ export async function submitCareersApplication(
   _prev: unknown,
   formData: FormData
 ): Promise<{ ok: true; fallback?: string } | { ok: false; error: string }> {
+  const honeypot = (formData.get("company") as string)?.trim() ?? "";
+  if (honeypot) return { ok: true };
+
+  const rate = checkRateLimit(getClientIp(), "careers");
+  if (!rate.allowed) return { ok: false, error: rate.error };
+
   const fullName = (formData.get("fullName") as string)?.trim() ?? "";
   const email = (formData.get("email") as string)?.trim() ?? "";
   const phone = (formData.get("phone") as string)?.trim() ?? "";

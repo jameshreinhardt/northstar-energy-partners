@@ -1,6 +1,8 @@
 "use server";
 
 import { Resend } from "resend";
+import { getClientIp } from "../lib/getClientIp";
+import { checkRateLimit } from "../lib/rateLimit";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EMAIL =
@@ -34,21 +36,27 @@ export async function submitPartnerInquiry(
   _prev: unknown,
   formData: FormData
 ): Promise<{ ok: true; fallback?: string } | { ok: false; error: string }> {
+  const honeypot = (formData.get("company") as string)?.trim() ?? "";
+  if (honeypot) return { ok: true };
+
+  const rate = checkRateLimit(getClientIp(), "partners");
+  if (!rate.allowed) return { ok: false, error: rate.error };
+
   const fullName = (formData.get("fullName") as string)?.trim() ?? "";
-  const company = (formData.get("company") as string)?.trim() ?? "";
+  const organization = (formData.get("organization") as string)?.trim() ?? "";
   const email = (formData.get("email") as string)?.trim() ?? "";
   const phone = (formData.get("phone") as string)?.trim() ?? "";
   const marketStates = (formData.get("marketStates") as string)?.trim() ?? "";
   const message = (formData.get("message") as string)?.trim() ?? "";
 
   if (!fullName) return { ok: false, error: "Full name is required." };
-  if (!company) return { ok: false, error: "Company name is required." };
+  if (!organization) return { ok: false, error: "Company name is required." };
   if (!email) return { ok: false, error: "Email is required." };
   if (!email.includes("@")) return { ok: false, error: "Please enter a valid email address." };
 
   const body = [
     `Full Name: ${fullName}`,
-    `Company: ${company}`,
+    `Company: ${organization}`,
     `Email: ${email}`,
     `Phone: ${phone || "(not provided)"}`,
     `Market(s) / State(s): ${marketStates || "(not provided)"}`,
