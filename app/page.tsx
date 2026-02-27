@@ -133,6 +133,125 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Trusted community solar enrollment partner */}
+        <section className="scroll-mt-24 bg-white px-6 py-24 lg:px-8 lg:py-32">
+          <div className="mx-auto max-w-5xl">
+            <FadeIn>
+              <h2 className="font-serif text-3xl font-semibold tracking-tight text-navy sm:text-4xl">
+                Trusted community solar enrollment partner
+              </h2>
+              <div className="mt-4 h-1 w-14 bg-gold rounded-full" />
+              <p className="mt-6 max-w-2xl text-xl text-slate-600">
+                Northstar Energy Partners supports customer acquisition and enrollment across regulated community solar programs.
+              </p>
+            </FadeIn>
+            <div className="mt-16 grid gap-8 sm:grid-cols-2">
+              <FadeIn delay={0}>
+                <div className="rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
+                  <h3 className="font-serif text-xl font-semibold text-navy">
+                    Utility-aligned enrollment
+                  </h3>
+                  <p className="mt-2 text-lg text-slate-600 leading-relaxed">
+                    We enroll customers based on utility service territories, project availability, and program eligibility requirements.
+                  </p>
+                </div>
+              </FadeIn>
+              <FadeIn delay={80}>
+                <div className="rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
+                  <h3 className="font-serif text-xl font-semibold text-navy">
+                    Compliance-first process
+                  </h3>
+                  <p className="mt-2 text-lg text-slate-600 leading-relaxed">
+                    Enrollment follows program guidelines, including disclosures, verification, and audit-ready documentation.
+                  </p>
+                </div>
+              </FadeIn>
+              <FadeIn delay={160}>
+                <div className="rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
+                  <h3 className="font-serif text-xl font-semibold text-navy">
+                    Customer-focused experience
+                  </h3>
+                  <p className="mt-2 text-lg text-slate-600 leading-relaxed">
+                    Customers receive clear communication and support throughout eligibility and enrollment.
+                  </p>
+                </div>
+              </FadeIn>
+              <FadeIn delay={240}>
+                <div className="rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
+                  <h3 className="font-serif text-xl font-semibold text-navy">
+                    Multi-market infrastructure
+                  </h3>
+                  <p className="mt-2 text-lg text-slate-600 leading-relaxed">
+                    Our systems are designed to support multiple states and community solar markets as we expand.
+                  </p>
+                </div>
+              </FadeIn>
+            </div>
+          </div>
+        </section>
+
+        {/* Service Area */}
+        <section className="scroll-mt-24 bg-slate-50/70 px-6 py-24 lg:px-8 lg:py-32">
+          <div className="mx-auto max-w-5xl">
+            <FadeIn>
+              <h2 className="font-serif text-3xl font-semibold tracking-tight text-navy sm:text-4xl">
+                Service Area
+              </h2>
+              <div className="mt-4 h-1 w-14 bg-gold rounded-full" />
+              <p className="mt-6 max-w-2xl text-xl text-slate-600">
+                Northstar Energy Partners currently supports community solar enrollment in the following utility territories:
+              </p>
+            </FadeIn>
+            <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              <FadeIn delay={0}>
+                <div className="rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
+                  <h3 className="font-serif text-xl font-semibold text-navy">
+                    Baltimore Gas & Electric (BGE)
+                  </h3>
+                </div>
+              </FadeIn>
+              <FadeIn delay={80}>
+                <div className="rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
+                  <h3 className="font-serif text-xl font-semibold text-navy">
+                    Pepco
+                  </h3>
+                </div>
+              </FadeIn>
+              <FadeIn delay={160}>
+                <div className="rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
+                  <h3 className="font-serif text-xl font-semibold text-navy">
+                    Delmarva Power
+                  </h3>
+                </div>
+              </FadeIn>
+              <FadeIn delay={240}>
+                <div className="rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
+                  <h3 className="font-serif text-xl font-semibold text-navy">
+                    Potomac Edison
+                  </h3>
+                </div>
+              </FadeIn>
+              <FadeIn delay={320}>
+                <div className="rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
+                  <h3 className="font-serif text-xl font-semibold text-navy">
+                    SMECO
+                  </h3>
+                </div>
+              </FadeIn>
+              <FadeIn delay={400}>
+                <div className="rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
+                  <h3 className="font-serif text-xl font-semibold text-navy">
+                    Additional markets expanding
+                  </h3>
+                </div>
+              </FadeIn>
+            </div>
+            <p className="mt-12 text-center text-sm text-slate-500">
+              Availability depends on project capacity and utility program availability.
+            </p>
+          </div>
+        </section>
+
         {/* Check Eligibility */}
         <section
           id={CHECK_ELIGIBILITY_ID}
@@ -513,58 +632,32 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Where We're Available */}
+        {/* Expanding next */}
         <section id="markets" className="scroll-mt-24 bg-white px-6 py-24 lg:px-8 lg:py-32">
           <div className="mx-auto max-w-5xl">
             <FadeIn>
               <h2 className="font-serif text-3xl font-semibold tracking-tight text-navy sm:text-4xl">
-                Where We’re Available
+                Expanding next
               </h2>
               <div className="mt-4 h-1 w-14 bg-gold rounded-full" />
               <p className="mt-6 max-w-2xl text-xl text-slate-600">
-                We help connect customers with community solar in multiple regions. Availability depends on your location and utility.
+                Currently serving Maryland utility territories. Expanding into additional regulated community solar markets.
               </p>
             </FadeIn>
-            <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <ul className="mt-10 list-inside list-disc space-y-3 text-lg text-slate-600">
               <FadeIn delay={0}>
-                <div className="rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
-                  <h3 className="font-serif text-xl font-semibold text-navy">
-                    Northeast & Mid-Atlantic
-                  </h3>
-                  <p className="mt-2 text-lg text-slate-600">
-                    Areas where community solar is available through local utilities and projects.
-                  </p>
-                </div>
+                <li>Additional utility territories as new project capacity becomes available</li>
               </FadeIn>
-              <FadeIn delay={60}>
-                <div className="rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
-                  <h3 className="font-serif text-xl font-semibold text-navy">
-                    Midwest & more
-                  </h3>
-                  <p className="mt-2 text-lg text-slate-600">
-                    We’re expanding as new projects and utilities open to customers.
-                  </p>
-                </div>
+              <FadeIn delay={80}>
+                <li>New program markets through subscriber management partnerships</li>
               </FadeIn>
-              <FadeIn delay={120}>
-                <div className="rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
-                  <h3 className="font-serif text-xl font-semibold text-navy">
-                    For partners
-                  </h3>
-                  <p className="mt-2 text-lg text-slate-600">
-                    We also work with developers, utilities, and program owners on subscriber acquisition.
-                  </p>
-                </div>
+              <FadeIn delay={160}>
+                <li>Improved eligibility matching and verification as we scale</li>
               </FadeIn>
-            </div>
-            <div className="mt-12 flex justify-center">
-              <button
-                onClick={() => scrollTo(CHECK_ELIGIBILITY_ID)}
-                className="rounded-lg bg-gold px-8 py-4 text-lg font-semibold text-navy shadow-lg transition hover:bg-gold-light focus:outline-none focus:ring-2 focus:ring-gold-light focus:ring-offset-2 focus:ring-offset-white"
-              >
-                Check My Eligibility
-              </button>
-            </div>
+            </ul>
+            <p className="mt-6 text-sm text-slate-500">
+              Availability depends on project capacity and utility program availability.
+            </p>
           </div>
         </section>
 
@@ -873,6 +966,9 @@ export default function Home() {
             <p>We do not sell your information. We use it to check eligibility and support enrollment.</p>
           </div>
           <p className="mt-10 text-center text-sm text-white/80">
+            Northstar Energy Partners is a customer acquisition and enrollment support provider for community solar programs.
+          </p>
+          <p className="mt-2 text-center text-sm text-white/80">
             © {year} Northstar Energy Partners. All rights reserved.
           </p>
         </div>

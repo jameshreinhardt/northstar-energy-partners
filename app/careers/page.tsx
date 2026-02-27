@@ -30,6 +30,25 @@ export default function CareersPage() {
             clean energy, and building something that lasts, we&apos;d like to
             hear from you.
           </p>
+          <div className="mt-10 rounded-xl border border-slate-200 bg-slate-50/50 p-6">
+            <h3 className="font-serif text-lg font-semibold text-navy">
+              What to expect
+            </h3>
+            <ol className="mt-4 space-y-3 text-slate-600">
+              <li className="flex gap-3">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gold/20 font-serif text-sm font-semibold text-gold">1</span>
+                <span>We review applications weekly.</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gold/20 font-serif text-sm font-semibold text-gold">2</span>
+                <span>If there&apos;s a fit, we schedule a call.</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gold/20 font-serif text-sm font-semibold text-gold">3</span>
+                <span>We confirm next steps.</span>
+              </li>
+            </ol>
+          </div>
         </FadeIn>
         <FadeIn delay={80}>
           <div className="mt-12 rounded-2xl border border-slate-200 bg-slate-50/50 p-8 lg:p-10">

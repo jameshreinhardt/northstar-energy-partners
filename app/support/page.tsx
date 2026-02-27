@@ -38,6 +38,25 @@ export default function SupportPage() {
           <p className="mt-4 text-slate-600">
             We aim to respond within one business day.
           </p>
+          <div className="mt-10 rounded-xl border border-slate-200 bg-slate-50/50 p-6">
+            <h3 className="font-serif text-lg font-semibold text-navy">
+              What to expect
+            </h3>
+            <ol className="mt-4 space-y-3 text-slate-600">
+              <li className="flex gap-3">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gold/20 font-serif text-sm font-semibold text-gold">1</span>
+                <span>We review within 1 business day.</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gold/20 font-serif text-sm font-semibold text-gold">2</span>
+                <span>We reply by email (and may call/text if provided).</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gold/20 font-serif text-sm font-semibold text-gold">3</span>
+                <span>We help resolve or route your request.</span>
+              </li>
+            </ol>
+          </div>
         </FadeIn>
         <FadeIn delay={80}>
           <div className="mt-12 rounded-2xl border border-slate-200 bg-slate-50/50 p-8 lg:p-10">

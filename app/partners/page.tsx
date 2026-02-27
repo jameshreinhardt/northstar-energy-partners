@@ -61,6 +61,80 @@ export default function PartnersPage() {
           </FadeIn>
         </div>
 
+        {/* What partners can expect */}
+        <section className="mt-24">
+          <FadeIn>
+            <h2 className="font-serif text-3xl font-semibold tracking-tight text-navy sm:text-4xl">
+              What partners can expect
+            </h2>
+            <div className="mt-4 h-1 w-14 bg-gold rounded-full" />
+          </FadeIn>
+          <div className="mt-16 grid gap-8 sm:grid-cols-3">
+            <FadeIn delay={0}>
+              <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-8 shadow-sm">
+                <h3 className="font-serif text-xl font-semibold text-navy">
+                  Volume & quality controls
+                </h3>
+                <p className="mt-2 text-lg text-slate-600 leading-relaxed">
+                  QA and verification processes keep data clean and submission quality high.
+                </p>
+              </div>
+            </FadeIn>
+            <FadeIn delay={80}>
+              <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-8 shadow-sm">
+                <h3 className="font-serif text-xl font-semibold text-navy">
+                  Compliance-first enrollment
+                </h3>
+                <p className="mt-2 text-lg text-slate-600 leading-relaxed">
+                  Disclosures and audit-ready tracking so enrollment stays compliant.
+                </p>
+              </div>
+            </FadeIn>
+            <FadeIn delay={160}>
+              <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-8 shadow-sm">
+                <h3 className="font-serif text-xl font-semibold text-navy">
+                  Fast feedback loop
+                </h3>
+                <p className="mt-2 text-lg text-slate-600 leading-relaxed">
+                  Weekly reporting and rapid iteration so you can adjust as needed.
+                </p>
+              </div>
+            </FadeIn>
+          </div>
+        </section>
+
+        {/* How enrollment works with Northstar */}
+        <section className="mt-24">
+          <FadeIn>
+            <h2 className="font-serif text-3xl font-semibold tracking-tight text-navy sm:text-4xl">
+              How enrollment works with Northstar
+            </h2>
+            <div className="mt-4 h-1 w-14 bg-gold rounded-full" />
+          </FadeIn>
+          <FadeIn delay={80}>
+            <div className="mt-10 rounded-xl border border-slate-200 bg-slate-50/50 p-6">
+              <ol className="space-y-3 text-slate-600">
+                <li className="flex gap-3">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gold/20 font-serif text-sm font-semibold text-gold">1</span>
+                  <span><strong className="text-navy">Customer acquisition</strong> — We generate customer interest through targeted outreach, digital channels, and referral sources.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gold/20 font-serif text-sm font-semibold text-gold">2</span>
+                  <span><strong className="text-navy">Eligibility verification</strong> — We confirm utility territory, program eligibility, and customer information before submission.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gold/20 font-serif text-sm font-semibold text-gold">3</span>
+                  <span><strong className="text-navy">Secure partner delivery</strong> — We provide qualified customer enrollment information through agreed-upon delivery and verification processes.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gold/20 font-serif text-sm font-semibold text-gold">4</span>
+                  <span><strong className="text-navy">Ongoing reporting</strong> — We maintain communication and provide updates as customers move through enrollment and activation.</span>
+                </li>
+              </ol>
+            </div>
+          </FadeIn>
+        </section>
+
         <section className="mt-24">
           <FadeIn>
             <h2 className="font-serif text-3xl font-semibold tracking-tight text-navy sm:text-4xl">
@@ -68,7 +142,7 @@ export default function PartnersPage() {
             </h2>
             <div className="mt-4 h-1 w-14 bg-gold rounded-full" />
             <p className="mt-6 text-xl text-slate-600">
-              For developers, utilities, and program partners: share your goals and we&apos;ll respond within one business day. Submissions go to partners@northstarenergypartners.com.
+              For developers, utilities, and program partners: share your goals and we&apos;ll respond within one business day.
             </p>
           </FadeIn>
           <FadeIn delay={80}>
