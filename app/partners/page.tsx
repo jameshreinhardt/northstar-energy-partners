@@ -7,11 +7,11 @@ import { SecondaryCta } from "../components/SecondaryCta";
 export const metadata = {
   title: "Partners | Northstar Energy Partners",
   description:
-    "Northstar Energy Partners is a dedicated subscriber acquisition platform. Partner with us for community solar enrollment.",
+    "Partner with Northstar Energy Partners for community solar subscriber acquisition. Maryland and regulated markets. Quality enrollment and compliance.",
   openGraph: {
     title: "Partners | Northstar Energy Partners",
     description:
-      "Northstar Energy Partners is a dedicated subscriber acquisition platform. Partner with us for community solar enrollment.",
+      "Partner with Northstar Energy Partners for community solar subscriber acquisition. Maryland and regulated markets. Quality enrollment and compliance.",
   },
 };
 

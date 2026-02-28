@@ -31,27 +31,17 @@ export function StickyEligibilityBar() {
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 z-40 border-t border-slate-200 bg-white shadow-lg transition-opacity duration-300"
+      className="fixed bottom-0 left-0 right-0 z-40 border-t border-slate-200 bg-white shadow-lg transition-opacity duration-300 lg:hidden"
       style={{ opacity: visible ? 1 : 0 }}
     >
-      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-4 lg:flex-row lg:items-center lg:justify-between lg:px-8">
-        <div className="text-center lg:text-left">
-          <p className="font-semibold text-navy">
-            Check your eligibility for community solar
-          </p>
-          <p className="mt-0.5 text-sm text-slate-500">
-            Free. No obligation. Takes less than 30 seconds.
-          </p>
-        </div>
-        <div className="shrink-0 lg:w-auto">
-          <button
-            type="button"
-            onClick={handleClick}
-            className="w-full rounded-lg bg-gold px-8 py-4 text-lg font-semibold text-navy shadow-lg transition hover:bg-gold-light focus:outline-none focus:ring-2 focus:ring-gold-light focus:ring-offset-2 focus:ring-offset-white lg:w-auto"
-          >
-            Check My Eligibility
-          </button>
-        </div>
+      <div className="flex items-center justify-center px-6 py-3">
+        <button
+          type="button"
+          onClick={handleClick}
+          className="w-full max-w-sm rounded-lg bg-gold px-6 py-3.5 text-base font-semibold text-navy shadow-lg transition hover:bg-gold-light focus:outline-none focus:ring-2 focus:ring-gold-light focus:ring-offset-2 focus:ring-offset-white"
+        >
+          Check Eligibility
+        </button>
       </div>
     </div>
   );

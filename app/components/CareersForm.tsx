@@ -121,6 +121,9 @@ export function CareersForm() {
         {state && !state.ok && (
           <p className="text-base text-red-600">{state.error ?? "Something went wrong. Please try again."}</p>
         )}
+        <p className="text-sm text-slate-500">
+          We never sell your information. Used only to verify eligibility and support enrollment.
+        </p>
         <button
           type="submit"
           className="w-full rounded-lg bg-navy px-6 py-4 text-lg font-semibold text-white shadow-sm transition hover:bg-navy-light disabled:opacity-70 sm:w-auto sm:min-w-[200px]"

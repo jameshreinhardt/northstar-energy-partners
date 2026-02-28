@@ -6,17 +6,81 @@ import { SecondaryCta } from "../components/SecondaryCta";
 export const metadata = {
   title: "FAQ | Northstar Energy Partners",
   description:
-    "Frequently asked questions about community solar, eligibility, and how Northstar Energy Partners works.",
+    "Frequently asked questions about Maryland community solar: eligibility, billing, cancellation, and how Northstar Energy Partners connects you with local solar credits.",
   openGraph: {
     title: "FAQ | Northstar Energy Partners",
     description:
-      "Frequently asked questions about community solar, eligibility, and how Northstar Energy Partners works.",
+      "Frequently asked questions about Maryland community solar: eligibility, billing, cancellation, and how Northstar Energy Partners connects you with local solar credits.",
   },
+};
+
+const FAQ_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Do I need solar panels or any equipment?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "No. Community solar uses shared projects off-site. Nothing is installed at your home or business.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Do I have to switch utilities?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "No. You keep your current utility and one bill. Credits from the solar project are applied to that same bill.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How do I see savings?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Credits from the solar project appear on your regular electric bill. Your bill may be lower depending on the credits and your usage.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can I cancel later?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Terms depend on the specific project. When you sign up, you'll see the agreement details before you commit.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What actually changes for me?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "You stay with your utility and get one bill. The only change is that solar credits may be applied to that bill. No new equipment and no new company to pay.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Who is eligible?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "In many areas, anyone with an electric bill can apply—renters, homeowners, condos, apartments, and small businesses. Eligibility depends on your location and utility.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How is my information used?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "We use your information only to check eligibility and connect you with a project. We don't sell your data to third parties for marketing.",
+      },
+    },
+  ],
 };
 
 export default function FAQPage() {
   return (
     <div className="min-h-screen bg-slate-50/70">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA) }} />
       <SiteHeader />
       <main className="mx-auto max-w-3xl px-6 py-24 lg:px-8 lg:py-32">
         <FadeIn>

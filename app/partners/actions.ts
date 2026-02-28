@@ -4,6 +4,7 @@ import { Resend } from "resend";
 import { safeFormString as s } from "../lib/formData";
 import { maskFromEmail } from "../lib/emailLog";
 import { insertPartnerInquiry } from "../lib/db";
+import { sendAdminNotification } from "../lib/adminEmail";
 import { getClientIp } from "../lib/getClientIp";
 import { checkRateLimitKv } from "../lib/rateLimitKv";
 
@@ -69,18 +70,14 @@ export async function submitPartnerInquiry(
     }
     if (!email.includes("@")) return { ok: false, error: "Please enter a valid email address." };
 
-    try {
-      await insertPartnerInquiry({
-        fullName,
-        organization,
-        email,
-        phone,
-        marketStates,
-        message,
-      });
-    } catch (dbErr) {
-      console.error("[partners] insertPartnerInquiry failed", dbErr);
-    }
+    const inserted = await insertPartnerInquiry({
+      fullName,
+      organization,
+      email,
+      phone,
+      marketStates,
+      message,
+    });
 
     const body = [
       `Full Name: ${fullName}`,
@@ -92,6 +89,10 @@ export async function submitPartnerInquiry(
       "Message:",
       message || "(not provided)",
     ].join("\n");
+
+    if (inserted) {
+      await sendAdminNotification("New Partner Inquiry", body);
+    }
 
     const resendKey = process.env.RESEND_API_KEY;
     console.log("[partners] RESEND_API_KEY present:", !!resendKey);

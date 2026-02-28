@@ -4,6 +4,7 @@ import { Resend } from "resend";
 import { safeFormString as s } from "../lib/formData";
 import { maskFromEmail } from "../lib/emailLog";
 import { insertCareersApplication } from "../lib/db";
+import { sendAdminNotification } from "../lib/adminEmail";
 import { getClientIp } from "../lib/getClientIp";
 import { checkRateLimitKv } from "../lib/rateLimitKv";
 
@@ -72,18 +73,14 @@ export async function submitCareersApplication(
 
     const roleLabel = ROLE_OPTIONS[roleKey] ?? roleKey;
 
-    try {
-      await insertCareersApplication({
-        fullName,
-        email,
-        phone,
-        cityState,
-        roleInterest: roleKey,
-        experience,
-      });
-    } catch (dbErr) {
-      console.error("[careers] insertCareersApplication failed", dbErr);
-    }
+    const inserted = await insertCareersApplication({
+      fullName,
+      email,
+      phone,
+      cityState,
+      roleInterest: roleKey,
+      experience,
+    });
 
     const body = [
       `Full Name: ${fullName}`,
@@ -95,6 +92,10 @@ export async function submitCareersApplication(
       "Experience:",
       experience || "(not provided)",
     ].join("\n");
+
+    if (inserted) {
+      await sendAdminNotification("New Careers Application", body);
+    }
 
     const resendKey = process.env.RESEND_API_KEY;
     console.log("[careers] RESEND_API_KEY present:", !!resendKey);

@@ -4,6 +4,7 @@ import { Resend } from "resend";
 import { safeFormString as s } from "../lib/formData";
 import { maskFromEmail } from "../lib/emailLog";
 import { insertSupportRequest } from "../lib/db";
+import { sendAdminNotification } from "../lib/adminEmail";
 import { getClientIp } from "../lib/getClientIp";
 import { checkRateLimitKv } from "../lib/rateLimitKv";
 
@@ -72,17 +73,13 @@ export async function submitSupportRequest(
 
     const subjectLabel = SUBJECT_OPTIONS[subjectKey] ?? subjectKey;
 
-    try {
-      await insertSupportRequest({
-        fullName,
-        email,
-        phone,
-        subject: subjectKey,
-        message,
-      });
-    } catch (dbErr) {
-      console.error("[support] insertSupportRequest failed", dbErr);
-    }
+    const inserted = await insertSupportRequest({
+      fullName,
+      email,
+      phone,
+      subject: subjectKey,
+      message,
+    });
 
     const body = [
       `Full Name: ${fullName}`,
@@ -93,6 +90,10 @@ export async function submitSupportRequest(
       "Message:",
       message,
     ].join("\n");
+
+    if (inserted) {
+      await sendAdminNotification("New Support Request", body);
+    }
 
     const resendKey = process.env.RESEND_API_KEY;
     console.log("[support] RESEND_API_KEY present:", !!resendKey);

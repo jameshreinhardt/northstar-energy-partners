@@ -6,11 +6,11 @@ import { SecondaryCta } from "../components/SecondaryCta";
 export const metadata = {
   title: "How it Works | Northstar Energy Partners",
   description:
-    "Community solar lets you support local solar power and see credits on your electric bill. Learn how it works.",
+    "How community solar works in Maryland: no panels, one bill, credits from a local solar farm. Serving BGE, Pepco, SMECO, Delmarva & Potomac Edison.",
   openGraph: {
     title: "How it Works | Northstar Energy Partners",
     description:
-      "Community solar lets you support local solar power and see credits on your electric bill. Learn how it works.",
+      "How community solar works in Maryland: no panels, one bill, credits from a local solar farm. Serving BGE, Pepco, SMECO, Delmarva & Potomac Edison.",
   },
 };
 

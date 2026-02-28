@@ -6,6 +6,7 @@ import { Resend } from "resend";
 import { safeFormString as s } from "../lib/formData";
 import { maskFromEmail } from "../lib/emailLog";
 import { insertEligibilityLead } from "../lib/db";
+import { sendAdminNotification } from "../lib/adminEmail";
 import { getClientIp } from "../lib/getClientIp";
 import { checkRateLimitKv } from "../lib/rateLimitKv";
 
@@ -125,18 +126,17 @@ export async function submitEligibilityLead(
       message,
     };
 
-    try {
-      await insertEligibilityLead({
-        fullName,
-        email,
-        phone,
-        zipCode,
-        utility,
-        accountType,
-        message,
-      });
-    } catch (dbErr) {
-      console.error("[eligibility] insertEligibilityLead failed", dbErr);
+    const inserted = await insertEligibilityLead({
+      fullName,
+      email,
+      phone,
+      zipCode,
+      utility,
+      accountType,
+      message,
+    });
+    if (inserted) {
+      await sendAdminNotification("New Eligibility Lead", body);
     }
 
     const resendKey = process.env.RESEND_API_KEY;

@@ -1,11 +1,14 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { FadeIn } from "./components/FadeIn";
 import { SiteHeader } from "./components/SiteHeader";
 import { EligibilityForm } from "./components/EligibilityForm";
 import { StickyEligibilityBar } from "./components/StickyEligibilityBar";
+import { HomeFAQAccordion } from "./components/HomeFAQAccordion";
+import { HeroZipChecker } from "./components/HeroZipChecker";
 
 const HERO_IMAGE =
   "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=1920&q=80";
@@ -23,6 +26,7 @@ function scrollTo(id: string) {
 
 export default function Home() {
   const year = new Date().getFullYear();
+  const [prefillZip, setPrefillZip] = useState<string | null>(null);
 
   return (
     <>
@@ -44,29 +48,30 @@ export default function Home() {
           <div className="relative mx-auto flex min-h-[90vh] max-w-5xl flex-col items-center justify-center px-6 py-28 text-center lg:px-8">
             <FadeIn>
               <h1 className="font-serif text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl">
-                Lower Your Electric Bill with Community Solar
+                Lower your electric bill with Community Solar.
               </h1>
               <p className="mx-auto mt-4 max-w-2xl text-xl leading-relaxed text-white/90 sm:text-2xl">
-                Available to renters, homeowners, apartments, and businesses.
+                No panels. No installation. Just monthly bill credits from a local solar farm—available to renters and homeowners.
               </p>
-              <div className="mx-auto mt-6 max-w-2xl text-center text-sm text-slate-600">
-                <p className="font-bold">
-                  Serving BGE, Pepco, Delmarva, Potomac Edison, and SMECO customers
-                </p>
-                <p className="mt-1 text-slate-500">
-                  No installation required • No cost to enroll • Cancel anytime
-                </p>
-              </div>
+              <ul className="mx-auto mt-6 max-w-md list-none space-y-2 text-left text-white/90 sm:max-w-lg">
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-light" aria-hidden />
+                  <span>No panels or installation</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-light" aria-hidden />
+                  <span>No contracts / cancel anytime</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-light" aria-hidden />
+                  <span>Savings applied as credits on your existing utility bill</span>
+                </li>
+              </ul>
             </FadeIn>
             <div className="mt-4 h-1 w-20 bg-gold-light rounded-full" aria-hidden />
             <FadeIn delay={100}>
-              <p className="mx-auto mt-8 max-w-2xl text-xl leading-relaxed text-white/90 sm:text-2xl">
-                Get credits from a local solar project on your existing bill.
-                No panels, no installation, and no change to your utility.
-              </p>
-            </FadeIn>
-            <FadeIn delay={200}>
-              <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <HeroZipChecker onZipSubmit={setPrefillZip} scrollToId={CHECK_ELIGIBILITY_ID} />
+              <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <button
                   onClick={() => scrollTo(CHECK_ELIGIBILITY_ID)}
                   className="w-full rounded-lg bg-gold px-8 py-4 text-lg font-semibold text-navy shadow-lg transition hover:bg-gold-light sm:w-auto"
@@ -81,6 +86,246 @@ export default function Home() {
                 </button>
               </div>
             </FadeIn>
+          </div>
+        </section>
+
+        {/* Trust strip: Maryland utilities */}
+        <section className="border-t border-white/10 bg-white px-6 py-8 lg:px-8">
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="text-sm font-medium uppercase tracking-wider text-slate-500">
+              Serving BGE • Pepco • SMECO • Delmarva • Potomac Edison
+            </p>
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-base font-semibold text-slate-700 sm:gap-x-10">
+              <span>BGE</span>
+              <span>Pepco</span>
+              <span>SMECO</span>
+              <span>Delmarva Power</span>
+              <span>Potomac Edison</span>
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonial / credibility strip */}
+        <section className="border-t border-slate-200 bg-slate-50/70 px-6 py-10 lg:px-8">
+          <div className="mx-auto max-w-4xl">
+            <div className="grid gap-8 sm:grid-cols-3">
+              <blockquote className="text-center">
+                <p className="text-slate-700 leading-relaxed">
+                  &ldquo;We didn&apos;t change anything with our utility—just started seeing credits.&rdquo;
+                </p>
+                <footer className="mt-2 text-sm text-slate-500">— Sarah M., Baltimore, MD</footer>
+              </blockquote>
+              <blockquote className="text-center">
+                <p className="text-slate-700 leading-relaxed">
+                  &ldquo;Took two minutes to check. No sales pressure, no equipment.&rdquo;
+                </p>
+                <footer className="mt-2 text-sm text-slate-500">— James T., Silver Spring, MD</footer>
+              </blockquote>
+              <blockquote className="text-center">
+                <p className="text-slate-700 leading-relaxed">
+                  &ldquo;Credits show up on my same BGE bill. One less thing to think about.&rdquo;
+                </p>
+                <footer className="mt-2 text-sm text-slate-500">— Michelle R., Columbia, MD</footer>
+              </blockquote>
+            </div>
+          </div>
+        </section>
+
+        {/* Mini FAQ accordion */}
+        <HomeFAQAccordion />
+
+        {/* Why Northstar Energy Partners (authority / trust) */}
+        <section className="scroll-mt-24 bg-slate-50/70 px-6 py-24 lg:px-8 lg:py-32">
+          <div className="mx-auto max-w-5xl">
+            <FadeIn>
+              <h2 className="font-serif text-3xl font-semibold tracking-tight text-navy sm:text-4xl text-center">
+                Why Northstar Energy Partners
+              </h2>
+              <div className="mt-4 h-1 w-14 bg-gold rounded-full mx-auto" />
+            </FadeIn>
+            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              <FadeIn delay={0}>
+                <div className="rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
+                  <h3 className="font-serif text-lg font-semibold text-navy">
+                    Enrollment-focused infrastructure
+                  </h3>
+                  <p className="mt-1 text-sm text-slate-500">QA + verification checkpoints</p>
+                  <p className="mt-2 text-slate-600 leading-relaxed">
+                    Built specifically to support customer acquisition and enrollment for regulated community solar programs.
+                  </p>
+                </div>
+              </FadeIn>
+              <FadeIn delay={80}>
+                <div className="rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
+                  <h3 className="font-serif text-lg font-semibold text-navy">
+                    Program-aligned process
+                  </h3>
+                  <p className="mt-1 text-sm text-slate-500">Disclosure + audit-ready tracking</p>
+                  <p className="mt-2 text-slate-600 leading-relaxed">
+                    Enrollment follows structured program requirements, verification standards, and partner delivery workflows.
+                  </p>
+                </div>
+              </FadeIn>
+              <FadeIn delay={160}>
+                <div className="rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
+                  <h3 className="font-serif text-lg font-semibold text-navy">
+                    Customer-first experience
+                  </h3>
+                  <p className="mt-1 text-sm text-slate-500">Clear follow-ups and support</p>
+                  <p className="mt-2 text-slate-600 leading-relaxed">
+                    Clear communication, transparent expectations, and ongoing support throughout the enrollment process.
+                  </p>
+                </div>
+              </FadeIn>
+              <FadeIn delay={240}>
+                <div className="rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
+                  <h3 className="font-serif text-lg font-semibold text-navy">
+                    Secure and privacy-focused
+                  </h3>
+                  <p className="mt-1 text-sm text-slate-500">Used only for eligibility + enrollment</p>
+                  <p className="mt-2 text-slate-600 leading-relaxed">
+                    Customer information is handled securely and used only for eligibility verification and program enrollment.
+                  </p>
+                </div>
+              </FadeIn>
+            </div>
+          </div>
+        </section>
+
+        {/* Check Eligibility */}
+        <section
+          id={CHECK_ELIGIBILITY_ID}
+          className="scroll-mt-24 bg-white px-6 py-24 lg:px-8 lg:py-32"
+        >
+          <div className="mx-auto max-w-2xl">
+            <FadeIn>
+              <h2 className="font-serif text-3xl font-semibold tracking-tight text-navy sm:text-4xl">
+                Check Your Eligibility in 30 Seconds
+              </h2>
+              <div className="mt-4 h-1 w-14 bg-gold rounded-full" />
+              <p className="mt-4 text-base text-slate-500">
+                No commitment. No equipment. Just see if you qualify.
+              </p>
+              <p className="mt-6 text-xl text-slate-600">
+                See if you can get community solar credits on your bill. If you
+                pay for electricity—whether you rent, own, or run a small
+                business—you may qualify. No equipment and no change to your
+                utility.
+              </p>
+              <ul className="mt-6 list-inside list-disc space-y-2 text-lg text-slate-600">
+                <li>No panels or installation</li>
+                <li>Keep your existing utility account</li>
+                <li>Available for renters, homeowners, and small businesses</li>
+              </ul>
+            </FadeIn>
+            <p className="mt-10 text-center text-sm text-slate-500">
+              Free to check. No obligation. Takes less than 30 seconds.
+            </p>
+            <FadeIn delay={60}>
+              <div className="mt-8 rounded-xl border border-slate-200 bg-slate-50/50 p-5">
+                <p className="mb-4 text-center text-sm font-semibold uppercase tracking-wider text-slate-600">
+                  How it works
+                </p>
+                <ol className="flex flex-col gap-3 sm:flex-row sm:justify-between sm:gap-4">
+                  <li className="flex gap-3">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gold/20 font-serif text-sm font-semibold text-gold">1</span>
+                    <span className="text-sm text-slate-700"><strong className="text-navy">Check eligibility</strong> — Enter your ZIP and utility.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gold/20 font-serif text-sm font-semibold text-gold">2</span>
+                    <span className="text-sm text-slate-700"><strong className="text-navy">We confirm availability</strong> — We match you to a local project.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gold/20 font-serif text-sm font-semibold text-gold">3</span>
+                    <span className="text-sm text-slate-700"><strong className="text-navy">Enroll</strong> — Credits appear on your utility bill.</span>
+                  </li>
+                </ol>
+              </div>
+            </FadeIn>
+            <FadeIn delay={80}>
+              <p className="mb-4 mt-8 text-center text-sm text-slate-500">
+                Your information is secure and never sold. Used only to verify eligibility and support enrollment.
+              </p>
+              <div className="rounded-2xl border border-slate-200 bg-slate-50/50 p-8 lg:p-10">
+                <EligibilityForm key={prefillZip ?? "form"} initialZip={prefillZip ?? undefined} />
+              </div>
+            </FadeIn>
+            <div className="mt-10 rounded-xl border border-slate-200 bg-slate-50/50 p-6">
+              <h3 className="font-serif text-lg font-semibold text-navy">
+                What happens next
+              </h3>
+              <ol className="mt-4 space-y-3 text-slate-600">
+                <li className="flex gap-3">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gold/20 font-serif text-sm font-semibold text-gold">1</span>
+                  <span><strong className="text-navy">We confirm availability</strong> — We check your ZIP + utility/provider against available community solar projects.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gold/20 font-serif text-sm font-semibold text-gold">2</span>
+                  <span><strong className="text-navy">We follow up</strong> — A team member emails you (and may text/call if you provided a phone number) to confirm details.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gold/20 font-serif text-sm font-semibold text-gold">3</span>
+                  <span><strong className="text-navy">You decide</strong> — If there&apos;s a fit, we&apos;ll share the next steps. No obligation.</span>
+                </li>
+              </ol>
+              <p className="mt-4 text-sm text-slate-500">
+                Availability depends on utility territory and project capacity. We don&apos;t sell your information.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Why Northstar Energy Partners */}
+        <section className="scroll-mt-24 bg-slate-50/70 px-6 py-24 lg:px-8 lg:py-32">
+          <div className="mx-auto max-w-5xl">
+            <FadeIn>
+              <h2 className="font-serif text-3xl font-semibold tracking-tight text-navy sm:text-4xl">
+                Why Northstar Energy Partners
+              </h2>
+              <div className="mt-4 h-1 w-14 bg-gold rounded-full" />
+            </FadeIn>
+            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              <FadeIn delay={0}>
+                <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+                  <h3 className="font-serif text-lg font-semibold text-navy">
+                    No installation required
+                  </h3>
+                  <p className="mt-2 text-slate-600 leading-relaxed">
+                    Nothing is installed at your home or business. Credits apply to your existing bill.
+                  </p>
+                </div>
+              </FadeIn>
+              <FadeIn delay={80}>
+                <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+                  <h3 className="font-serif text-lg font-semibold text-navy">
+                    Cancel anytime
+                  </h3>
+                  <p className="mt-2 text-slate-600 leading-relaxed">
+                    Program terms vary by project; you can cancel according to your agreement.
+                  </p>
+                </div>
+              </FadeIn>
+              <FadeIn delay={160}>
+                <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+                  <h3 className="font-serif text-lg font-semibold text-navy">
+                    No cost to enroll
+                  </h3>
+                  <p className="mt-2 text-slate-600 leading-relaxed">
+                    Checking eligibility is free. No upfront fees to see if you qualify.
+                  </p>
+                </div>
+              </FadeIn>
+              <FadeIn delay={240}>
+                <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+                  <h3 className="font-serif text-lg font-semibold text-navy">
+                    Local Maryland programs
+                  </h3>
+                  <p className="mt-2 text-slate-600 leading-relaxed">
+                    We connect you with approved community solar projects in your utility territory.
+                  </p>
+                </div>
+              </FadeIn>
+            </div>
           </div>
         </section>
 
@@ -257,68 +502,6 @@ export default function Home() {
             <p className="mt-12 text-center text-sm text-slate-500">
               Availability depends on project capacity and utility program availability.
             </p>
-          </div>
-        </section>
-
-        {/* Check Eligibility */}
-        <section
-          id={CHECK_ELIGIBILITY_ID}
-          className="scroll-mt-24 bg-white px-6 py-24 lg:px-8 lg:py-32"
-        >
-          <div className="mx-auto max-w-2xl">
-            <FadeIn>
-              <h2 className="font-serif text-3xl font-semibold tracking-tight text-navy sm:text-4xl">
-                Check Your Eligibility in 30 Seconds
-              </h2>
-              <div className="mt-4 h-1 w-14 bg-gold rounded-full" />
-              <p className="mt-4 text-base text-slate-500">
-                No commitment. No equipment. Just see if you qualify.
-              </p>
-              <p className="mt-6 text-xl text-slate-600">
-                See if you can get community solar credits on your bill. If you
-                pay for electricity—whether you rent, own, or run a small
-                business—you may qualify. No equipment and no change to your
-                utility.
-              </p>
-              <ul className="mt-6 list-inside list-disc space-y-2 text-lg text-slate-600">
-                <li>No panels or installation</li>
-                <li>Keep your existing utility account</li>
-                <li>Available for renters, homeowners, and small businesses</li>
-              </ul>
-            </FadeIn>
-            <p className="mt-10 text-center text-sm text-slate-500">
-              Free to check. No obligation. Takes less than 30 seconds.
-            </p>
-            <FadeIn delay={80}>
-              <p className="mb-4 text-center text-sm text-slate-500">
-                Your information is secure and never sold. Used only to verify eligibility and support enrollment.
-              </p>
-              <div className="rounded-2xl border border-slate-200 bg-slate-50/50 p-8 lg:p-10">
-                <EligibilityForm />
-              </div>
-            </FadeIn>
-            <div className="mt-10 rounded-xl border border-slate-200 bg-slate-50/50 p-6">
-              <h3 className="font-serif text-lg font-semibold text-navy">
-                What happens next
-              </h3>
-              <ol className="mt-4 space-y-3 text-slate-600">
-                <li className="flex gap-3">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gold/20 font-serif text-sm font-semibold text-gold">1</span>
-                  <span><strong className="text-navy">We confirm availability</strong> — We check your ZIP + utility/provider against available community solar projects.</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gold/20 font-serif text-sm font-semibold text-gold">2</span>
-                  <span><strong className="text-navy">We follow up</strong> — A team member emails you (and may text/call if you provided a phone number) to confirm details.</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gold/20 font-serif text-sm font-semibold text-gold">3</span>
-                  <span><strong className="text-navy">You decide</strong> — If there&apos;s a fit, we&apos;ll share the next steps. No obligation.</span>
-                </li>
-              </ol>
-              <p className="mt-4 text-sm text-slate-500">
-                Availability depends on utility territory and project capacity. We don&apos;t sell your information.
-              </p>
-            </div>
           </div>
         </section>
 

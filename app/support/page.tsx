@@ -7,11 +7,11 @@ import { SecondaryCta } from "../components/SecondaryCta";
 export const metadata = {
   title: "Support | Northstar Energy Partners",
   description:
-    "Questions about your account or eligibility? Reach out and we'll get back to you.",
+    "Get help with your Maryland community solar account or eligibility. Northstar Energy Partners support—we respond within one business day.",
   openGraph: {
     title: "Support | Northstar Energy Partners",
     description:
-      "Questions about your account or eligibility? Reach out and we'll get back to you.",
+      "Get help with your Maryland community solar account or eligibility. Northstar Energy Partners support—we respond within one business day.",
   },
 };
 

@@ -7,11 +7,11 @@ import { SecondaryCta } from "../components/SecondaryCta";
 export const metadata = {
   title: "Careers | Northstar Energy Partners",
   description:
-    "We're building a team that can scale community solar acquisition across the country. Join us.",
+    "Join Northstar Energy Partners—building a team to scale community solar acquisition. Maryland and beyond. Operations, sales, and canvassing roles.",
   openGraph: {
     title: "Careers | Northstar Energy Partners",
     description:
-      "We're building a team that can scale community solar acquisition across the country. Join us.",
+      "Join Northstar Energy Partners—building a team to scale community solar acquisition. Maryland and beyond. Operations, sales, and canvassing roles.",
   },
 };
 

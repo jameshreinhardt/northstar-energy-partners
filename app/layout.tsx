@@ -23,30 +23,30 @@ const siteUrl =
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Northstar Energy Partners | Scaling Access to Community Solar",
+    default: "Northstar Energy Partners | Maryland Community Solar Eligibility & Bill Credits",
     template: "%s",
   },
   description:
-    "Customer acquisition and infrastructure for community solar. We help leading solar organizations connect homeowners with clean energy and bill savings—at scale.",
+    "Lower your electric bill with community solar in Maryland. No panels, no installation—just bill credits from a local solar farm. Check eligibility for BGE, Pepco, SMECO, Delmarva & Potomac Edison.",
   openGraph: {
-    title: "Northstar Energy Partners | Scaling Access to Community Solar",
+    title: "Northstar Energy Partners | Maryland Community Solar Eligibility & Bill Credits",
     description:
-      "Customer acquisition and infrastructure for community solar. We help leading solar organizations connect homeowners with clean energy and bill savings—at scale.",
+      "Lower your electric bill with community solar in Maryland. No panels, no installation—just bill credits. Check eligibility for BGE, Pepco, SMECO, Delmarva & Potomac Edison.",
     type: "website",
     images: [
       {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "Northstar Energy Partners — Scaling Access to Community Solar",
+        alt: "Northstar Energy Partners — Maryland Community Solar",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Northstar Energy Partners | Scaling Access to Community Solar",
+    title: "Northstar Energy Partners | Maryland Community Solar Eligibility & Bill Credits",
     description:
-      "Customer acquisition and infrastructure for community solar. We help leading solar organizations connect homeowners with clean energy and bill savings—at scale.",
+      "Lower your electric bill with community solar in Maryland. No panels, no installation—just bill credits. Check eligibility in under 30 seconds.",
   },
 };
 

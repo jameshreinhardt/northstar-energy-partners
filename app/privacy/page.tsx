@@ -3,10 +3,12 @@ import { SiteHeader } from "../components/SiteHeader";
 
 export const metadata = {
   title: "Privacy Policy | Northstar Energy Partners",
-  description: "Privacy policy for Northstar Energy Partners. How we collect, use, and protect your information.",
+  description:
+    "Northstar Energy Partners privacy policy. How we collect, use, and protect your information for Maryland community solar eligibility and enrollment.",
   openGraph: {
     title: "Privacy Policy | Northstar Energy Partners",
-    description: "Privacy policy for Northstar Energy Partners. How we collect, use, and protect your information.",
+    description:
+      "Northstar Energy Partners privacy policy. How we collect, use, and protect your information for Maryland community solar eligibility and enrollment.",
   },
 };
 

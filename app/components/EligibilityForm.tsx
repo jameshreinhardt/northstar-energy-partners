@@ -6,7 +6,11 @@ import { submitEligibilityLead } from "../eligibility/actions";
 const UTILITIES = ["BGE", "Pepco", "Delmarva", "Potomac Edison", "SMECO", "Other"] as const;
 const ACCOUNT_TYPES = ["Residential", "Business"] as const;
 
-export function EligibilityForm() {
+type EligibilityFormProps = {
+  initialZip?: string;
+};
+
+export function EligibilityForm({ initialZip }: EligibilityFormProps) {
   const [state, formAction] = useFormState(submitEligibilityLead, null);
   const success = state?.ok === true;
   const formKey = success ? "submitted" : "form";
@@ -93,6 +97,7 @@ export function EligibilityForm() {
               required
               inputMode="numeric"
               autoComplete="postal-code"
+              defaultValue={initialZip ?? ""}
               className="mt-2 block w-full rounded-lg border border-slate-300 bg-white px-4 py-3.5 text-lg text-slate-800 shadow-sm transition focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/20"
               placeholder="ZIP code"
             />
@@ -147,6 +152,9 @@ export function EligibilityForm() {
         {state && !state.ok && (
           <p className="text-base text-red-600">{state.error ?? "Something went wrong. Please try again."}</p>
         )}
+        <p className="text-sm text-slate-500">
+          We never sell your information. Used only to verify eligibility and support enrollment.
+        </p>
         <button
           type="submit"
           className="w-full rounded-lg bg-navy px-6 py-4 text-lg font-semibold text-white shadow-sm transition hover:bg-navy-light disabled:opacity-70 sm:w-auto sm:min-w-[200px]"
