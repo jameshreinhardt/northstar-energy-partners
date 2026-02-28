@@ -25,7 +25,7 @@ export default function Home() {
       <SiteHeader />
       <main>
         {/* Hero with solar farm background */}
-        <section className="relative min-h-[90vh] overflow-hidden">
+        <section className="relative min-h-[90vh] overflow-hidden pb-12">
           <div className="absolute inset-0">
             <Image
               src={HERO_IMAGE}
@@ -35,18 +35,15 @@ export default function Home() {
               priority
               sizes="100vw"
             />
-            <div className="absolute inset-0 bg-navy/70" />
+            <div className="absolute inset-0 bg-navy/80" />
           </div>
           <div className="relative mx-auto flex min-h-[90vh] max-w-5xl flex-col items-center justify-center px-6 py-28 text-center lg:px-8">
             <FadeIn>
               <h1 className="font-serif text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl">
-                Lower your electric bill with Community Solar.
+                Get solar bill credits through Community Solar.
               </h1>
               <p className="mx-auto mt-4 max-w-2xl text-xl leading-relaxed text-white/90 sm:text-2xl">
-                No panels. No installation. Just monthly bill credits from a local solar farm—available to renters and homeowners.
-              </p>
-              <p className="text-base text-slate-600 mt-3">
-                Available through regulated community solar programs. No installation required.
+                No installation. No contracts. Just bill credits applied to your existing electric bill.
               </p>
               <ul className="mx-auto mt-6 max-w-md list-none space-y-2 text-left text-white/90 sm:max-w-lg">
                 <li className="flex items-start gap-2">
@@ -59,11 +56,10 @@ export default function Home() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-light" aria-hidden />
-                  <span>Savings applied as credits on your existing utility bill</span>
+                  <span>Credits applied directly to your existing utility bill</span>
                 </li>
               </ul>
             </FadeIn>
-            <div className="mt-4 h-1 w-20 bg-gold-light rounded-full" aria-hidden />
             <FadeIn delay={100}>
               <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <button
@@ -97,24 +93,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Trust strip: Maryland utilities */}
-        <section className="border-t border-white/10 bg-white px-6 py-8 lg:px-8">
-          <div className="mx-auto max-w-4xl text-center">
-            <p className="text-sm font-medium uppercase tracking-wider text-slate-500">
-              Serving BGE • Pepco • SMECO • Delmarva • Potomac Edison
-            </p>
-            <div className="mt-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-base font-semibold text-slate-700 sm:gap-x-10">
-              <span>BGE</span>
-              <span>Pepco</span>
-              <span>SMECO</span>
-              <span>Delmarva Power</span>
-              <span>Potomac Edison</span>
-            </div>
-          </div>
-        </section>
-
         {/* Testimonial / credibility strip */}
-        <section className="border-t border-slate-200 bg-slate-50/70 px-6 py-10 lg:px-8">
+        <section className="border-t border-slate-200 bg-slate-50/70 px-6 pt-12 pb-10 lg:px-8 lg:pt-12">
           <div className="mx-auto max-w-4xl">
             <div className="grid gap-8 sm:grid-cols-3">
               <blockquote className="text-center">
