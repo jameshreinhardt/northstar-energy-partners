@@ -6,11 +6,7 @@ import { submitEligibilityLead } from "../eligibility/actions";
 const UTILITIES = ["BGE", "Pepco", "Delmarva", "Potomac Edison", "SMECO", "Other"] as const;
 const ACCOUNT_TYPES = ["Residential", "Business"] as const;
 
-type EligibilityFormProps = {
-  initialZip?: string;
-};
-
-export function EligibilityForm({ initialZip }: EligibilityFormProps) {
+export function EligibilityForm() {
   const [state, formAction] = useFormState(submitEligibilityLead, null);
   const success = state?.ok === true;
   const formKey = success ? "submitted" : "form";
@@ -97,7 +93,6 @@ export function EligibilityForm({ initialZip }: EligibilityFormProps) {
               required
               inputMode="numeric"
               autoComplete="postal-code"
-              defaultValue={initialZip ?? ""}
               className="mt-2 block w-full rounded-lg border border-slate-300 bg-white px-4 py-3.5 text-lg text-slate-800 shadow-sm transition focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/20"
               placeholder="ZIP code"
             />

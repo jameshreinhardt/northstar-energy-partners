@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { FadeIn } from "./components/FadeIn";
@@ -8,7 +7,6 @@ import { SiteHeader } from "./components/SiteHeader";
 import { EligibilityForm } from "./components/EligibilityForm";
 import { StickyEligibilityBar } from "./components/StickyEligibilityBar";
 import { HomeFAQAccordion } from "./components/HomeFAQAccordion";
-import { HeroZipChecker } from "./components/HeroZipChecker";
 
 const HERO_IMAGE =
   "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=1920&q=80";
@@ -26,7 +24,6 @@ function scrollTo(id: string) {
 
 export default function Home() {
   const year = new Date().getFullYear();
-  const [prefillZip, setPrefillZip] = useState<string | null>(null);
 
   return (
     <>
@@ -70,8 +67,7 @@ export default function Home() {
             </FadeIn>
             <div className="mt-4 h-1 w-20 bg-gold-light rounded-full" aria-hidden />
             <FadeIn delay={100}>
-              <HeroZipChecker onZipSubmit={setPrefillZip} scrollToId={CHECK_ELIGIBILITY_ID} />
-              <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <button
                   onClick={() => scrollTo(CHECK_ELIGIBILITY_ID)}
                   className="w-full rounded-lg bg-gold px-8 py-4 text-lg font-semibold text-navy shadow-lg transition hover:bg-gold-light sm:w-auto"
@@ -247,7 +243,7 @@ export default function Home() {
                 Your information is secure and never sold. Used only to verify eligibility and support enrollment.
               </p>
               <div className="rounded-2xl border border-slate-200 bg-slate-50/50 p-8 lg:p-10">
-                <EligibilityForm key={prefillZip ?? "form"} initialZip={prefillZip ?? undefined} />
+                <EligibilityForm />
               </div>
             </FadeIn>
             <div className="mt-10 rounded-xl border border-slate-200 bg-slate-50/50 p-6">
