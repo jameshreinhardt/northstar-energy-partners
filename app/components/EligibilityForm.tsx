@@ -14,11 +14,13 @@ export function EligibilityForm() {
   return (
     <>
       {success && (
-        <div className="mb-6">
+        <div className="mb-6 rounded-lg border border-sky-200 bg-sky-50 p-4" role="status">
           <p className="text-lg font-medium text-navy">
-            You&apos;re on the list. Check your email for confirmation.
+            {state.confirmationSent === true
+              ? "You're on the list. Check your email for confirmation."
+              : "Request received. We'll follow up by email within one business day."}
           </p>
-          {state.fallback && (
+          {state.confirmationSent === false && state.fallback && (
             <p className="mt-2 text-base text-navy">
               {state.fallback}
             </p>

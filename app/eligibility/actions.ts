@@ -72,10 +72,14 @@ const FALLBACK_CONFIRM_FAILED = "Request received, but we could not send a confi
 export async function submitEligibilityLead(
   _prev: unknown,
   formData: FormData
-): Promise<{ ok: true; fallback?: string } | { ok: false; error: string }> {
+): Promise<
+  | { ok: true; confirmationSent: true }
+  | { ok: true; confirmationSent: false; fallback?: string }
+  | { ok: false; error: string }
+> {
   try {
     const honeypot = s(formData.get("company"));
-    if (honeypot) return { ok: true };
+    if (honeypot) return { ok: true, confirmationSent: false };
 
     let rate: { allowed: true } | { allowed: false; error: string };
     try {
@@ -132,9 +136,10 @@ export async function submitEligibilityLead(
       } catch {
         // ignore
       }
-      return { ok: true, fallback: FALLBACK_NO_KEY };
+      return { ok: true, confirmationSent: false, fallback: FALLBACK_NO_KEY };
     }
 
+    let confirmationSent = false;
     try {
       const resend = new Resend(resendKey);
       const { error } = await resend.emails.send({
@@ -157,6 +162,7 @@ export async function submitEligibilityLead(
             html: confirmationEmailHtml(),
           });
           console.log("[eligibility] Confirmation email send succeeded");
+          confirmationSent = true;
         } catch (confirmErr) {
           console.error("[eligibility] Confirmation email send failed", confirmErr);
           try {
@@ -164,7 +170,7 @@ export async function submitEligibilityLead(
           } catch {
             // ignore
           }
-          return { ok: true, fallback: FALLBACK_CONFIRM_FAILED };
+          return { ok: true, confirmationSent: false, fallback: FALLBACK_CONFIRM_FAILED };
         }
       }
     } catch (e) {
@@ -178,7 +184,7 @@ export async function submitEligibilityLead(
       // lead still sent by email; don't fail the form
     }
 
-    return { ok: true };
+    return { ok: true, confirmationSent };
   } catch (err) {
     console.error("submitEligibilityLead failed", err);
     return { ok: false, error: FRIENDLY_ERROR };

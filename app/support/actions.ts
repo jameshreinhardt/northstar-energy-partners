@@ -42,10 +42,14 @@ const FALLBACK_CONFIRM_FAILED = "Request received, but we could not send a confi
 export async function submitSupportRequest(
   _prev: unknown,
   formData: FormData
-): Promise<{ ok: true; fallback?: string } | { ok: false; error: string }> {
+): Promise<
+  | { ok: true; confirmationSent: true }
+  | { ok: true; confirmationSent: false; fallback?: string }
+  | { ok: false; error: string }
+> {
   try {
     const honeypot = s(formData.get("company"));
-    if (honeypot) return { ok: true };
+    if (honeypot) return { ok: true, confirmationSent: false };
 
     let rate: { allowed: true } | { allowed: false; error: string };
     try {
@@ -83,9 +87,10 @@ export async function submitSupportRequest(
 
     if (!resendKey) {
       console.log("[support] Confirmation email disabled (no API key)");
-      return { ok: true, fallback: FALLBACK_NO_KEY };
+      return { ok: true, confirmationSent: false, fallback: FALLBACK_NO_KEY };
     }
 
+    let confirmationSent = false;
     try {
       const resend = new Resend(resendKey);
       const { error } = await resend.emails.send({
@@ -108,9 +113,10 @@ export async function submitSupportRequest(
             html: confirmationHtml(subjectLabel),
           });
           console.log("[support] Confirmation email send succeeded");
+          confirmationSent = true;
         } catch (confirmErr) {
           console.error("[support] Confirmation email send failed", confirmErr);
-          return { ok: true, fallback: FALLBACK_CONFIRM_FAILED };
+          return { ok: true, confirmationSent: false, fallback: FALLBACK_CONFIRM_FAILED };
         }
       }
     } catch (e) {
@@ -118,7 +124,7 @@ export async function submitSupportRequest(
       return { ok: false, error: SEND_ERROR };
     }
 
-    return { ok: true };
+    return { ok: true, confirmationSent };
   } catch (err) {
     console.error("submitSupportRequest failed", err);
     return { ok: false, error: FRIENDLY_ERROR };
