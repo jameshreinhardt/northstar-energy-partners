@@ -23,7 +23,7 @@ const FAQ_SCHEMA = {
       name: "Do I need solar panels or any equipment?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "No. Community solar uses shared projects off-site. Nothing is installed at your home or business.",
+        text: "No. Community solar uses large off-site solar farms. Nothing is installed on your home or property.",
       },
     },
     {
@@ -31,7 +31,7 @@ const FAQ_SCHEMA = {
       name: "Do I have to switch utilities?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "No. You keep your current utility and one bill. Credits from the solar project are applied to that same bill.",
+        text: "No. You stay with your current utility and continue receiving the same electric bill. Solar credits are simply applied to that bill.",
       },
     },
     {
@@ -39,15 +39,15 @@ const FAQ_SCHEMA = {
       name: "How do I see savings?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Credits from the solar project appear on your regular electric bill. Your bill may be lower depending on the credits and your usage.",
+        text: "Solar credits appear directly on your existing electric bill, reducing the amount you pay to your utility.",
       },
     },
     {
       "@type": "Question",
-      name: "Can I cancel later?",
+      name: "Are there contracts or long-term commitments?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Terms depend on the specific project. When you sign up, you'll see the agreement details before you commit.",
+        text: "No long-term commitment is required. You can cancel anytime.",
       },
     },
     {
@@ -55,7 +55,7 @@ const FAQ_SCHEMA = {
       name: "What actually changes for me?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "You stay with your utility and get one bill. The only change is that solar credits may be applied to that bill. No new equipment and no new company to pay.",
+        text: "Nothing about your service changes. You keep the same utility, the same account, and the same bill. The only difference is that solar credits are added.",
       },
     },
     {
@@ -63,7 +63,7 @@ const FAQ_SCHEMA = {
       name: "Who is eligible?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "In many areas, anyone with an electric bill can apply—renters, homeowners, condos, apartments, and small businesses. Eligibility depends on your location and utility.",
+        text: "Most customers with an active electric bill can qualify, including renters, homeowners, condos, apartments, and small businesses. Availability depends on your utility and project capacity.",
       },
     },
     {
@@ -71,7 +71,15 @@ const FAQ_SCHEMA = {
       name: "How is my information used?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "We use your information only to check eligibility and connect you with a project. We don't sell your data to third parties for marketing.",
+        text: "Your information is used only to check eligibility and support enrollment. It is never sold for marketing.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What happens after I check eligibility?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "If you're eligible, you'll receive the project details and enrollment information. You'll always be able to review the terms before deciding to proceed.",
       },
     },
   ],
@@ -85,7 +93,7 @@ export default function FAQPage() {
       <main className="mx-auto max-w-3xl px-6 py-24 lg:px-8 lg:py-32">
         <FadeIn>
           <h1 className="font-serif text-3xl font-semibold tracking-tight text-navy sm:text-4xl">
-            Frequently Asked Questions
+            What Most People Ask Before Enrolling
           </h1>
           <div className="mt-4 h-1 w-14 bg-gold rounded-full" />
         </FadeIn>
@@ -94,7 +102,7 @@ export default function FAQPage() {
             <div>
               <dt className="font-semibold text-navy text-lg">Do I need solar panels or any equipment?</dt>
               <dd className="mt-2 text-slate-600 leading-relaxed">
-                No. Community solar uses shared projects off-site. Nothing is installed at your home or business.
+                No. Community solar uses large off-site solar farms. Nothing is installed on your home or property.
               </dd>
             </div>
           </FadeIn>
@@ -102,7 +110,7 @@ export default function FAQPage() {
             <div>
               <dt className="font-semibold text-navy text-lg">Do I have to switch utilities?</dt>
               <dd className="mt-2 text-slate-600 leading-relaxed">
-                No. You keep your current utility and one bill. Credits from the solar project are applied to that same bill.
+                No. You stay with your current utility and continue receiving the same electric bill. Solar credits are simply applied to that bill.
               </dd>
             </div>
           </FadeIn>
@@ -110,15 +118,15 @@ export default function FAQPage() {
             <div>
               <dt className="font-semibold text-navy text-lg">How do I see savings?</dt>
               <dd className="mt-2 text-slate-600 leading-relaxed">
-                Credits from the solar project appear on your regular electric bill. Your bill may be lower depending on the credits and your usage.
+                Solar credits appear directly on your existing electric bill, reducing the amount you pay to your utility.
               </dd>
             </div>
           </FadeIn>
           <FadeIn delay={120}>
             <div>
-              <dt className="font-semibold text-navy text-lg">Can I cancel later?</dt>
+              <dt className="font-semibold text-navy text-lg">Are there contracts or long-term commitments?</dt>
               <dd className="mt-2 text-slate-600 leading-relaxed">
-                Terms depend on the specific project. When you sign up, you&apos;ll see the agreement details before you commit.
+                No long-term commitment is required. You can cancel anytime.
               </dd>
             </div>
           </FadeIn>
@@ -126,7 +134,7 @@ export default function FAQPage() {
             <div>
               <dt className="font-semibold text-navy text-lg">What actually changes for me?</dt>
               <dd className="mt-2 text-slate-600 leading-relaxed">
-                You stay with your utility and get one bill. The only change is that solar credits may be applied to that bill. No new equipment and no new company to pay.
+                Nothing about your service changes. You keep the same utility, the same account, and the same bill. The only difference is that solar credits are added.
               </dd>
             </div>
           </FadeIn>
@@ -134,7 +142,7 @@ export default function FAQPage() {
             <div>
               <dt className="font-semibold text-navy text-lg">Who is eligible?</dt>
               <dd className="mt-2 text-slate-600 leading-relaxed">
-                In many areas, anyone with an electric bill can apply—renters, homeowners, condos, apartments, and small businesses. Eligibility depends on your location and utility.
+                Most customers with an active electric bill can qualify, including renters, homeowners, condos, apartments, and small businesses. Availability depends on your utility and project capacity.
               </dd>
             </div>
           </FadeIn>
@@ -142,7 +150,15 @@ export default function FAQPage() {
             <div>
               <dt className="font-semibold text-navy text-lg">How is my information used?</dt>
               <dd className="mt-2 text-slate-600 leading-relaxed">
-                We use your information only to check eligibility and connect you with a project. We don&apos;t sell your data to third parties for marketing.
+                Your information is used only to check eligibility and support enrollment. It is never sold for marketing.
+              </dd>
+            </div>
+          </FadeIn>
+          <FadeIn delay={280}>
+            <div>
+              <dt className="font-semibold text-navy text-lg">What happens after I check eligibility?</dt>
+              <dd className="mt-2 text-slate-600 leading-relaxed">
+                If you&apos;re eligible, you&apos;ll receive the project details and enrollment information. You&apos;ll always be able to review the terms before deciding to proceed.
               </dd>
             </div>
           </FadeIn>

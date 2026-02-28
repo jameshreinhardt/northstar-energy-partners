@@ -4,28 +4,36 @@ import { useState } from "react";
 
 const ITEMS = [
   {
-    q: "Is this a contract?",
-    a: "You can typically cancel with notice (terms vary by program). Many programs have no long-term lock-in—you keep the flexibility to leave if you move or your situation changes.",
+    q: "Do I need solar panels or any equipment?",
+    a: "No. Community solar uses large off-site solar farms. Nothing is installed on your home or property.",
   },
   {
-    q: "Will my utility provider change?",
-    a: "No. You stay with your current utility. Community solar credits are applied to the same bill you already receive; nothing about your provider or account number changes.",
+    q: "Do I have to switch utilities?",
+    a: "No. You stay with your current utility and continue receiving the same electric bill. Solar credits are simply applied to that bill.",
   },
   {
-    q: "What's the catch?",
-    a: "There isn't one. Programs are designed so you save on your bill. We help you check eligibility and enroll at no upfront cost. Savings come from credits on your existing utility bill.",
+    q: "How do I see savings?",
+    a: "Solar credits appear directly on your existing electric bill, reducing the amount you pay to your utility.",
   },
   {
-    q: "Can renters enroll?",
-    a: "Yes. If you pay the electric bill, you can often enroll—you don't need to own your home. Landlord permission may be required in some cases; we can help clarify for your situation.",
+    q: "Are there contracts or long-term commitments?",
+    a: "No long-term commitment is required. You can cancel anytime.",
   },
   {
-    q: "When do credits start?",
-    a: "After you're enrolled and the project is delivering energy, credits usually appear on your next utility bill or the one after. Timing depends on your utility's billing cycle.",
+    q: "What actually changes for me?",
+    a: "Nothing about your service changes. You keep the same utility, the same account, and the same bill. The only difference is that solar credits are added.",
   },
   {
-    q: "Does this affect my roof or require a site visit?",
-    a: "No. Community solar is off-site—no panels on your property and no home visit. We only need your ZIP and utility to check eligibility.",
+    q: "Who is eligible?",
+    a: "Most customers with an active electric bill can qualify, including renters, homeowners, condos, apartments, and small businesses. Availability depends on your utility and project capacity.",
+  },
+  {
+    q: "How is my information used?",
+    a: "Your information is used only to check eligibility and support enrollment. It is never sold for marketing.",
+  },
+  {
+    q: "What happens after I check eligibility?",
+    a: "If you're eligible, you'll receive the project details and enrollment information. You'll always be able to review the terms before deciding to proceed.",
   },
 ] as const;
 
@@ -36,7 +44,7 @@ export function HomeFAQAccordion() {
     <section className="border-t border-slate-200 bg-white px-6 py-14 lg:px-8 lg:py-20" id="home-faq">
       <div className="mx-auto max-w-2xl">
         <h2 className="font-serif text-2xl font-semibold tracking-tight text-navy sm:text-3xl">
-          Common questions
+          What Most People Ask Before Enrolling
         </h2>
         <div className="mt-2 h-1 w-12 bg-gold rounded-full" />
         <ul className="mt-8 divide-y divide-slate-200">
