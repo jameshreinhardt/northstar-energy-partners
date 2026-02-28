@@ -40,11 +40,8 @@ export default function Home() {
           <div className="relative mx-auto flex min-h-[90vh] max-w-5xl flex-col items-center justify-center px-6 py-28 text-center lg:px-8">
             <FadeIn>
               <h1 className="font-serif text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl">
-                Get solar bill credits through Community Solar.
+                Lower your electric bill with community solar.
               </h1>
-              <p className="mx-auto mt-4 max-w-2xl text-xl leading-relaxed text-white/90 sm:text-2xl">
-                No installation. No contracts. Just bill credits applied to your existing electric bill.
-              </p>
               <ul className="mx-auto mt-6 max-w-md list-none space-y-2 text-left text-white/90 sm:max-w-lg">
                 <li className="flex items-start gap-2">
                   <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-light" aria-hidden />
@@ -75,7 +72,7 @@ export default function Home() {
                   How it Works
                 </Link>
               </div>
-              <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-6 text-sm text-slate-600">
+              <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-6 text-sm text-slate-200">
                 <span className="flex items-center gap-2">
                   <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-gold" aria-hidden />
                   Free to check
