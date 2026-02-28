@@ -15,11 +15,16 @@ export function PartnerForm() {
   return (
     <>
       {success && (
-        <p className="mb-6 text-lg font-medium text-navy">
-          {state.fallback
-            ? `Partnership request received. ${state.fallback}`
-            : "Partnership request received. Check your email for confirmation."}
-        </p>
+        <div className="mb-6">
+          <p className="text-lg font-medium text-navy">
+            Partnership request received. Check your email for confirmation.
+          </p>
+          {state.fallback && (
+            <p className="mt-2 text-base text-navy">
+              {state.fallback}
+            </p>
+          )}
+        </div>
       )}
       <form key={formKey} action={formAction} className="space-y-6">
         <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", top: "auto", width: "1px", height: "1px", overflow: "hidden" }}>

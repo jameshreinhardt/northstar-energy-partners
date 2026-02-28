@@ -2,6 +2,7 @@
 
 import { Resend } from "resend";
 import { safeFormString as s } from "../lib/formData";
+import { maskFromEmail } from "../lib/emailLog";
 import { getClientIp } from "../lib/getClientIp";
 import { checkRateLimitKv } from "../lib/rateLimitKv";
 
@@ -33,6 +34,8 @@ function confirmationHtml(message: string): string {
 
 const FRIENDLY_ERROR = "Something went wrong. Please try again, or email support@northstarenergypartners.com.";
 const SEND_ERROR = "We couldn't send your request right now. Please email partners@northstarenergypartners.com.";
+const FALLBACK_NO_KEY = "Request received. Email confirmation is currently disabled—please email support@northstarenergypartners.com if needed.";
+const FALLBACK_CONFIRM_FAILED = "Request received, but we could not send a confirmation email. If you don't hear back, email support@northstarenergypartners.com.";
 
 export async function submitPartnerInquiry(
   _prev: unknown,
@@ -74,11 +77,12 @@ export async function submitPartnerInquiry(
     ].join("\n");
 
     const resendKey = process.env.RESEND_API_KEY;
+    console.log("[partners] RESEND_API_KEY present:", !!resendKey);
+    console.log("[partners] CONTACT_FROM_EMAIL:", maskFromEmail(FROM_EMAIL));
+
     if (!resendKey) {
-      return {
-        ok: true,
-        fallback: "If you don't hear back, email partners@northstarenergypartners.com",
-      };
+      console.log("[partners] Confirmation email disabled (no API key)");
+      return { ok: true, fallback: FALLBACK_NO_KEY };
     }
 
     try {
@@ -103,8 +107,10 @@ export async function submitPartnerInquiry(
             subject: CONFIRM_SUBJECT,
             html: confirmationHtml(message),
           });
-        } catch {
-          // best-effort
+          console.log("[partners] Confirmation email send succeeded");
+        } catch (confirmErr) {
+          console.error("[partners] Confirmation email send failed", confirmErr);
+          return { ok: true, fallback: FALLBACK_CONFIRM_FAILED };
         }
       }
     } catch (e) {
