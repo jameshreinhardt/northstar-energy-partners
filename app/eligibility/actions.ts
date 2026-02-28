@@ -5,6 +5,7 @@ import path from "path";
 import { Resend } from "resend";
 import { safeFormString as s } from "../lib/formData";
 import { maskFromEmail } from "../lib/emailLog";
+import { insertEligibilityLead } from "../lib/db";
 import { getClientIp } from "../lib/getClientIp";
 import { checkRateLimitKv } from "../lib/rateLimitKv";
 
@@ -65,16 +66,15 @@ async function saveLead(lead: Lead): Promise<void> {
 }
 
 const FRIENDLY_ERROR = "Something went wrong. Please try again, or email support@northstarenergypartners.com.";
-const SEND_ERROR = "We couldn't send your request right now. Please email support@northstarenergypartners.com.";
-const FALLBACK_NO_KEY = "Request received. Email confirmation is currently disabled—please email support@northstarenergypartners.com if needed.";
-const FALLBACK_CONFIRM_FAILED = "Request received, but we could not send a confirmation email. If you don't hear back, email support@northstarenergypartners.com.";
+/** Shown when submission succeeds but email/confirmation could not be sent (e.g. domain not verified). Never show Resend error to user. */
+const FALLBACK_EMAIL_UNAVAILABLE = "Request received. We'll follow up by email within one business day. Email confirmation is not available yet.";
 
 export async function submitEligibilityLead(
   _prev: unknown,
   formData: FormData
 ): Promise<
-  | { ok: true; confirmationSent: true }
-  | { ok: true; confirmationSent: false; fallback?: string }
+  | { ok: true; confirmationSent: true; zipCode: string; utility: string; accountType: string }
+  | { ok: true; confirmationSent: false; fallback?: string; zipCode?: string; utility?: string; accountType?: string }
   | { ok: false; error: string }
 > {
   try {
@@ -125,66 +125,75 @@ export async function submitEligibilityLead(
       message,
     };
 
+    try {
+      await insertEligibilityLead({
+        fullName,
+        email,
+        phone,
+        zipCode,
+        utility,
+        accountType,
+        message,
+      });
+    } catch (dbErr) {
+      console.error("[eligibility] insertEligibilityLead failed", dbErr);
+    }
+
     const resendKey = process.env.RESEND_API_KEY;
     console.log("[eligibility] RESEND_API_KEY present:", !!resendKey);
     console.log("[eligibility] CONTACT_FROM_EMAIL:", maskFromEmail(FROM_EMAIL));
 
-    if (!resendKey) {
-      console.log("[eligibility] Confirmation email disabled (no API key)");
-      try {
-        await saveLead(lead);
-      } catch {
-        // ignore
-      }
-      return { ok: true, confirmationSent: false, fallback: FALLBACK_NO_KEY };
-    }
-
     let confirmationSent = false;
     try {
+      if (!resendKey) {
+        console.log("[eligibility] Confirmation email disabled (no API key)");
+        return { ok: true, confirmationSent: false, fallback: FALLBACK_EMAIL_UNAVAILABLE, zipCode, utility, accountType };
+      }
+
       const resend = new Resend(resendKey);
-      const { error } = await resend.emails.send({
+      const { error: internalError } = await resend.emails.send({
         from: FROM_EMAIL,
         to: TO_EMAILS,
         replyTo: email,
         subject: SUBJECT,
         text: body,
       });
-      if (error) {
-        return { ok: false, error: error.message ?? FRIENDLY_ERROR };
+      if (internalError) {
+        console.error("[eligibility] Resend internal email failed", internalError);
+        return { ok: true, confirmationSent: false, fallback: FALLBACK_EMAIL_UNAVAILABLE, zipCode, utility, accountType };
       }
+
       if (isValidEmail(email)) {
         try {
-          await resend.emails.send({
+          const { error: confirmError } = await resend.emails.send({
             from: FROM_EMAIL,
             to: email,
             replyTo: "support@northstarenergypartners.com",
             subject: CONFIRM_SUBJECT,
             html: confirmationEmailHtml(),
           });
+          if (confirmError) {
+            console.error("[eligibility] Resend confirmation failed", confirmError);
+            return { ok: true, confirmationSent: false, fallback: FALLBACK_EMAIL_UNAVAILABLE, zipCode, utility, accountType };
+          }
           console.log("[eligibility] Confirmation email send succeeded");
           confirmationSent = true;
         } catch (confirmErr) {
           console.error("[eligibility] Confirmation email send failed", confirmErr);
-          try {
-            await saveLead(lead);
-          } catch {
-            // ignore
-          }
-          return { ok: true, confirmationSent: false, fallback: FALLBACK_CONFIRM_FAILED };
+          return { ok: true, confirmationSent: false, fallback: FALLBACK_EMAIL_UNAVAILABLE, zipCode, utility, accountType };
         }
       }
+
+      try {
+        await saveLead(lead);
+      } catch {
+        // ignore
+      }
+      return { ok: true, confirmationSent, zipCode, utility, accountType };
     } catch (e) {
-      console.error("Resend send failed (eligibility)", e);
-      return { ok: false, error: SEND_ERROR };
+      console.error("[eligibility] Resend send failed", e);
+      return { ok: true, confirmationSent: false, fallback: FALLBACK_EMAIL_UNAVAILABLE, zipCode, utility, accountType };
     }
-
-    try {
-      await saveLead(lead);
-    } catch {
-      // lead still sent by email; don't fail the form
-    }
-
-    return { ok: true, confirmationSent };
   } catch (err) {
     console.error("submitEligibilityLead failed", err);
     return { ok: false, error: FRIENDLY_ERROR };

@@ -3,6 +3,7 @@
 import { Resend } from "resend";
 import { safeFormString as s } from "../lib/formData";
 import { maskFromEmail } from "../lib/emailLog";
+import { insertSupportRequest } from "../lib/db";
 import { getClientIp } from "../lib/getClientIp";
 import { checkRateLimitKv } from "../lib/rateLimitKv";
 
@@ -35,9 +36,8 @@ const SUBJECT_OPTIONS: Record<string, string> = {
 };
 
 const FRIENDLY_ERROR = "Something went wrong. Please try again, or email support@northstarenergypartners.com.";
-const SEND_ERROR = "We couldn't send your request right now. Please email support@northstarenergypartners.com.";
-const FALLBACK_NO_KEY = "Request received. Email confirmation is currently disabled—please email support@northstarenergypartners.com if needed.";
-const FALLBACK_CONFIRM_FAILED = "Request received, but we could not send a confirmation email. If you don't hear back, email support@northstarenergypartners.com.";
+/** Shown when submission succeeds but email/confirmation could not be sent. Never show Resend error to user. */
+const FALLBACK_EMAIL_UNAVAILABLE = "Request received. We'll follow up by email within one business day. Email confirmation is not available yet.";
 
 export async function submitSupportRequest(
   _prev: unknown,
@@ -71,6 +71,19 @@ export async function submitSupportRequest(
     if (!email.includes("@")) return { ok: false, error: "Please enter a valid email address." };
 
     const subjectLabel = SUBJECT_OPTIONS[subjectKey] ?? subjectKey;
+
+    try {
+      await insertSupportRequest({
+        fullName,
+        email,
+        phone,
+        subject: subjectKey,
+        message,
+      });
+    } catch (dbErr) {
+      console.error("[support] insertSupportRequest failed", dbErr);
+    }
+
     const body = [
       `Full Name: ${fullName}`,
       `Email: ${email}`,
@@ -85,46 +98,52 @@ export async function submitSupportRequest(
     console.log("[support] RESEND_API_KEY present:", !!resendKey);
     console.log("[support] CONTACT_FROM_EMAIL:", maskFromEmail(FROM_EMAIL));
 
-    if (!resendKey) {
-      console.log("[support] Confirmation email disabled (no API key)");
-      return { ok: true, confirmationSent: false, fallback: FALLBACK_NO_KEY };
-    }
-
     let confirmationSent = false;
     try {
+      if (!resendKey) {
+        console.log("[support] Confirmation email disabled (no API key)");
+        return { ok: true, confirmationSent: false, fallback: FALLBACK_EMAIL_UNAVAILABLE };
+      }
+
       const resend = new Resend(resendKey);
-      const { error } = await resend.emails.send({
+      const { error: internalError } = await resend.emails.send({
         from: FROM_EMAIL,
         to: SUPPORT_TO,
         replyTo: email,
         subject: `${INTERNAL_SUBJECT} — ${subjectLabel}`,
         text: body,
       });
-      if (error) {
-        return { ok: false, error: error.message ?? FRIENDLY_ERROR };
+      if (internalError) {
+        console.error("[support] Resend internal email failed", internalError);
+        return { ok: true, confirmationSent: false, fallback: FALLBACK_EMAIL_UNAVAILABLE };
       }
+
       if (isValidEmail(email)) {
         try {
-          await resend.emails.send({
+          const { error: confirmError } = await resend.emails.send({
             from: FROM_EMAIL,
             to: email,
             replyTo: SUPPORT_TO,
             subject: CONFIRM_SUBJECT,
             html: confirmationHtml(subjectLabel),
           });
+          if (confirmError) {
+            console.error("[support] Resend confirmation failed", confirmError);
+            return { ok: true, confirmationSent: false, fallback: FALLBACK_EMAIL_UNAVAILABLE };
+          }
           console.log("[support] Confirmation email send succeeded");
           confirmationSent = true;
         } catch (confirmErr) {
           console.error("[support] Confirmation email send failed", confirmErr);
-          return { ok: true, confirmationSent: false, fallback: FALLBACK_CONFIRM_FAILED };
+          return { ok: true, confirmationSent: false, fallback: FALLBACK_EMAIL_UNAVAILABLE };
         }
       }
-    } catch (e) {
-      console.error("Resend send failed (support)", e);
-      return { ok: false, error: SEND_ERROR };
-    }
 
-    return { ok: true, confirmationSent };
+      return { ok: true, confirmationSent };
+    } catch (e) {
+      console.error("[support] Resend send failed", e);
+      return { ok: true, confirmationSent: false, fallback: FALLBACK_EMAIL_UNAVAILABLE };
+    }
   } catch (err) {
     console.error("submitSupportRequest failed", err);
     return { ok: false, error: FRIENDLY_ERROR };

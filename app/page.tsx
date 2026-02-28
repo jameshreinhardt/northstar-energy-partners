@@ -49,6 +49,14 @@ export default function Home() {
               <p className="mx-auto mt-4 max-w-2xl text-xl leading-relaxed text-white/90 sm:text-2xl">
                 Available to renters, homeowners, apartments, and businesses.
               </p>
+              <div className="mx-auto mt-6 max-w-2xl text-center text-sm text-slate-600">
+                <p className="font-bold">
+                  Serving BGE, Pepco, Delmarva, Potomac Edison, and SMECO customers
+                </p>
+                <p className="mt-1 text-slate-500">
+                  No installation required • No cost to enroll • Cancel anytime
+                </p>
+              </div>
             </FadeIn>
             <div className="mt-4 h-1 w-20 bg-gold-light rounded-full" aria-hidden />
             <FadeIn delay={100}>
@@ -282,7 +290,10 @@ export default function Home() {
               Free to check. No obligation. Takes less than 30 seconds.
             </p>
             <FadeIn delay={80}>
-              <div className="mt-12 rounded-2xl border border-slate-200 bg-slate-50/50 p-8 lg:p-10">
+              <p className="mb-4 text-center text-sm text-slate-500">
+                Your information is secure and never sold. Used only to verify eligibility and support enrollment.
+              </p>
+              <div className="rounded-2xl border border-slate-200 bg-slate-50/50 p-8 lg:p-10">
                 <EligibilityForm />
               </div>
             </FadeIn>
@@ -898,6 +909,26 @@ export default function Home() {
                 </div>
               </FadeIn>
             </div>
+          </div>
+        </section>
+
+        {/* Why Northstar exists */}
+        <section className="scroll-mt-24 bg-white px-6 py-24 lg:px-8 lg:py-32">
+          <div className="mx-auto max-w-3xl">
+            <FadeIn>
+              <h2 className="font-serif text-3xl font-semibold tracking-tight text-navy sm:text-4xl">
+                Why Northstar exists
+              </h2>
+              <div className="mt-4 h-1 w-14 bg-gold rounded-full" />
+            </FadeIn>
+            <FadeIn delay={80}>
+              <p className="mt-6 text-xl text-slate-600 leading-relaxed">
+                Northstar exists to make community solar accessible and straightforward. We believe everyone with an electric bill should be able to benefit from local solar without installing panels or switching utilities. Our mission is to connect customers with vetted community solar projects and support them through enrollment and beyond.
+              </p>
+              <p className="mt-6 text-xl text-slate-600 leading-relaxed">
+                We are transparent about how we operate. Northstar is compensated by project developers and program partners for connecting qualified customers with community solar subscriptions. This alignment allows us to offer eligibility checks and enrollment support at no upfront cost to you. We do not sell your data; we use it only to check eligibility and facilitate enrollment.
+              </p>
+            </FadeIn>
           </div>
         </section>
       </main>

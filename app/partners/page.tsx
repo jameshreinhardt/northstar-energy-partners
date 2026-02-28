@@ -2,6 +2,7 @@ import Link from "next/link";
 import { SiteHeader } from "../components/SiteHeader";
 import { FadeIn } from "../components/FadeIn";
 import { PartnerForm } from "../components/PartnerForm";
+import { SecondaryCta } from "../components/SecondaryCta";
 
 export const metadata = {
   title: "Partners | Northstar Energy Partners",
@@ -151,13 +152,15 @@ export default function PartnersPage() {
             </div>
           </FadeIn>
         </section>
-
-        <p className="mt-16 pt-8 border-t border-slate-200">
+      </main>
+      <SecondaryCta />
+      <div className="mx-auto max-w-5xl px-6 pb-24 lg:px-8">
+        <p className="border-t border-slate-200 pt-8">
           <Link href="/" className="text-navy font-medium hover:text-gold transition">
             ← Back to home
           </Link>
         </p>
-      </main>
+      </div>
     </div>
   );
 }

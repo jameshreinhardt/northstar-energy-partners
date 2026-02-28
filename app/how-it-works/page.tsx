@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SiteHeader } from "../components/SiteHeader";
 import { FadeIn } from "../components/FadeIn";
+import { SecondaryCta } from "../components/SecondaryCta";
 
 export const metadata = {
   title: "How it Works | Northstar Energy Partners",
@@ -68,20 +69,15 @@ export default function HowItWorksPage() {
             </div>
           </FadeIn>
         </div>
-        <div className="mt-12 flex justify-center">
-          <Link
-            href="/#check-eligibility"
-            className="rounded-lg bg-gold px-8 py-4 text-lg font-semibold text-navy shadow-lg transition hover:bg-gold-light focus:outline-none focus:ring-2 focus:ring-gold-light focus:ring-offset-2 focus:ring-offset-white"
-          >
-            Check My Eligibility
-          </Link>
-        </div>
-        <p className="mt-16 pt-8 border-t border-slate-200">
+      </main>
+      <SecondaryCta />
+      <div className="mx-auto max-w-5xl px-6 pb-24 lg:px-8">
+        <p className="border-t border-slate-200 pt-8">
           <Link href="/" className="text-navy font-medium hover:text-gold transition">
             ← Back to home
           </Link>
         </p>
-      </main>
+      </div>
     </div>
   );
 }

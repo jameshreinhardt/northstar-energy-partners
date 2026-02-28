@@ -3,6 +3,7 @@
 import { Resend } from "resend";
 import { safeFormString as s } from "../lib/formData";
 import { maskFromEmail } from "../lib/emailLog";
+import { insertPartnerInquiry } from "../lib/db";
 import { getClientIp } from "../lib/getClientIp";
 import { checkRateLimitKv } from "../lib/rateLimitKv";
 
@@ -33,9 +34,8 @@ function confirmationHtml(message: string): string {
 }
 
 const FRIENDLY_ERROR = "Something went wrong. Please try again, or email support@northstarenergypartners.com.";
-const SEND_ERROR = "We couldn't send your request right now. Please email partners@northstarenergypartners.com.";
-const FALLBACK_NO_KEY = "Request received. Email confirmation is currently disabled—please email support@northstarenergypartners.com if needed.";
-const FALLBACK_CONFIRM_FAILED = "Request received, but we could not send a confirmation email. If you don't hear back, email support@northstarenergypartners.com.";
+/** Shown when submission succeeds but email/confirmation could not be sent. Never show Resend error to user. */
+const FALLBACK_EMAIL_UNAVAILABLE = "Request received. We'll follow up by email within one business day. Email confirmation is not available yet.";
 
 export async function submitPartnerInquiry(
   _prev: unknown,
@@ -69,6 +69,19 @@ export async function submitPartnerInquiry(
     }
     if (!email.includes("@")) return { ok: false, error: "Please enter a valid email address." };
 
+    try {
+      await insertPartnerInquiry({
+        fullName,
+        organization,
+        email,
+        phone,
+        marketStates,
+        message,
+      });
+    } catch (dbErr) {
+      console.error("[partners] insertPartnerInquiry failed", dbErr);
+    }
+
     const body = [
       `Full Name: ${fullName}`,
       `Company: ${organization}`,
@@ -84,15 +97,15 @@ export async function submitPartnerInquiry(
     console.log("[partners] RESEND_API_KEY present:", !!resendKey);
     console.log("[partners] CONTACT_FROM_EMAIL:", maskFromEmail(FROM_EMAIL));
 
-    if (!resendKey) {
-      console.log("[partners] Confirmation email disabled (no API key)");
-      return { ok: true, confirmationSent: false, fallback: FALLBACK_NO_KEY };
-    }
-
     let confirmationSent = false;
     try {
+      if (!resendKey) {
+        console.log("[partners] Confirmation email disabled (no API key)");
+        return { ok: true, confirmationSent: false, fallback: FALLBACK_EMAIL_UNAVAILABLE };
+      }
+
       const resend = new Resend(resendKey);
-      const { error } = await resend.emails.send({
+      const { error: internalError } = await resend.emails.send({
         from: FROM_EMAIL,
         to: PARTNERS_TO,
         cc: [CC_EMAIL],
@@ -100,31 +113,37 @@ export async function submitPartnerInquiry(
         subject: INTERNAL_SUBJECT,
         text: body,
       });
-      if (error) {
-        return { ok: false, error: error.message ?? FRIENDLY_ERROR };
+      if (internalError) {
+        console.error("[partners] Resend internal email failed", internalError);
+        return { ok: true, confirmationSent: false, fallback: FALLBACK_EMAIL_UNAVAILABLE };
       }
+
       if (isValidEmail(email)) {
         try {
-          await resend.emails.send({
+          const { error: confirmError } = await resend.emails.send({
             from: FROM_EMAIL,
             to: email,
             replyTo: PARTNERS_TO,
             subject: CONFIRM_SUBJECT,
             html: confirmationHtml(message),
           });
+          if (confirmError) {
+            console.error("[partners] Resend confirmation failed", confirmError);
+            return { ok: true, confirmationSent: false, fallback: FALLBACK_EMAIL_UNAVAILABLE };
+          }
           console.log("[partners] Confirmation email send succeeded");
           confirmationSent = true;
         } catch (confirmErr) {
           console.error("[partners] Confirmation email send failed", confirmErr);
-          return { ok: true, confirmationSent: false, fallback: FALLBACK_CONFIRM_FAILED };
+          return { ok: true, confirmationSent: false, fallback: FALLBACK_EMAIL_UNAVAILABLE };
         }
       }
-    } catch (e) {
-      console.error("Resend send failed (partners)", e);
-      return { ok: false, error: SEND_ERROR };
-    }
 
-    return { ok: true, confirmationSent };
+      return { ok: true, confirmationSent };
+    } catch (e) {
+      console.error("[partners] Resend send failed", e);
+      return { ok: true, confirmationSent: false, fallback: FALLBACK_EMAIL_UNAVAILABLE };
+    }
   } catch (err) {
     console.error("submitPartnerInquiry failed", err);
     return { ok: false, error: FRIENDLY_ERROR };

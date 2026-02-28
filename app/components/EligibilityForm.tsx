@@ -14,18 +14,27 @@ export function EligibilityForm() {
   return (
     <>
       {success && (
-        <div className="mb-6 rounded-lg border border-sky-200 bg-sky-50 p-4" role="status">
-          <p className="text-lg font-medium text-navy">
-            {state.confirmationSent === true
-              ? "You're on the list. Check your email for confirmation."
-              : "Request received. We'll follow up by email within one business day."}
-          </p>
-          {state.confirmationSent === false && state.fallback && (
-            <p className="mt-2 text-base text-navy">
-              {state.fallback}
+        <>
+          <div className="mb-6 rounded-lg border border-sky-200 bg-sky-50 p-4" role="status">
+            <p className="text-lg font-medium text-navy">
+              {state.confirmationSent === true
+                ? "You're on the list. Check your email for confirmation."
+                : "Request received. We'll follow up by email within one business day."}
             </p>
+            {state.confirmationSent === false && state.fallback && (
+              <p className="mt-2 text-base text-navy">
+                {state.fallback}
+              </p>
+            )}
+          </div>
+          {"zipCode" in state && (state.zipCode != null || state.utility != null || state.accountType != null) && (
+            <div className="mt-4 rounded-lg border border-slate-200 bg-white p-4 text-sm text-slate-600">
+              <p><span className="font-medium text-slate-700">ZIP Code:</span> {state.zipCode ?? "—"}</p>
+              <p className="mt-1"><span className="font-medium text-slate-700">Utility / Provider:</span> {state.utility || "—"}</p>
+              <p className="mt-1"><span className="font-medium text-slate-700">Account Type:</span> {state.accountType ?? "—"}</p>
+            </div>
           )}
-        </div>
+        </>
       )}
       <form key={formKey} action={formAction} className="space-y-6">
         <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", top: "auto", width: "1px", height: "1px", overflow: "hidden" }}>
