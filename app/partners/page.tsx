@@ -29,6 +29,11 @@ export default function PartnersPage() {
             We help connect customers with approved community solar projects operated by leading energy developers and utilities.
           </p>
         </FadeIn>
+        <FadeIn delay={80}>
+          <div className="mt-12 rounded-2xl border border-slate-200 bg-slate-50/50 p-8 lg:p-10">
+            <PartnerForm />
+          </div>
+        </FadeIn>
         <div className="mt-16 grid gap-8 sm:grid-cols-3">
           <FadeIn delay={0}>
             <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-8 shadow-sm">
@@ -136,21 +141,62 @@ export default function PartnersPage() {
           </FadeIn>
         </section>
 
+        {/* Compliance & Program Alignment */}
         <section className="mt-24">
           <FadeIn>
             <h2 className="font-serif text-3xl font-semibold tracking-tight text-navy sm:text-4xl">
-              Partner With Us
+              Compliance & Program Alignment
             </h2>
             <div className="mt-4 h-1 w-14 bg-gold rounded-full" />
-            <p className="mt-6 text-xl text-slate-600">
-              For developers, utilities, and program partners: share your goals and we&apos;ll respond within one business day.
+            <p className="mt-6 max-w-2xl text-xl text-slate-600">
+              Northstar Energy Partners operates in accordance with state community solar program requirements and partner enrollment standards.
             </p>
           </FadeIn>
-          <FadeIn delay={80}>
-            <div className="mt-12 rounded-2xl border border-slate-200 bg-slate-50/50 p-8 lg:p-10">
-              <PartnerForm />
-            </div>
-          </FadeIn>
+          <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            <FadeIn delay={0}>
+              <div className="rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
+                <h3 className="font-serif text-xl font-semibold text-navy">
+                  Utility-aligned enrollment
+                </h3>
+                <p className="mt-2 text-lg text-slate-600 leading-relaxed">
+                  We enroll customers based on utility service territories, project availability, and eligibility requirements.
+                </p>
+              </div>
+            </FadeIn>
+            <FadeIn delay={80}>
+              <div className="rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
+                <h3 className="font-serif text-xl font-semibold text-navy">
+                  Program-compliant process
+                </h3>
+                <p className="mt-2 text-lg text-slate-600 leading-relaxed">
+                  Enrollment follows program guidelines including customer disclosures, documentation, and verification steps.
+                </p>
+              </div>
+            </FadeIn>
+            <FadeIn delay={160}>
+              <div className="rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
+                <h3 className="font-serif text-xl font-semibold text-navy">
+                  Partner-ready infrastructure
+                </h3>
+                <p className="mt-2 text-lg text-slate-600 leading-relaxed">
+                  Our systems and enrollment flow are designed to integrate with solar developers, subscriber managers, and utilities.
+                </p>
+              </div>
+            </FadeIn>
+            <FadeIn delay={240}>
+              <div className="rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
+                <h3 className="font-serif text-xl font-semibold text-navy">
+                  Multi-market capable
+                </h3>
+                <p className="mt-2 text-lg text-slate-600 leading-relaxed">
+                  Northstar is building enrollment infrastructure designed to support multiple states and community solar markets.
+                </p>
+              </div>
+            </FadeIn>
+          </div>
+          <p className="mt-12 text-center text-sm text-slate-500">
+            Specific program terms, availability, and eligibility vary by location and utility.
+          </p>
         </section>
       </main>
       <SecondaryCta />
